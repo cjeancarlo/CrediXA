@@ -1,12 +1,9 @@
 
 <div class="container main-container">
-
-
 <div class="row">
 <div class="col-md-2">
   <h4>{{operacion}}  </h4>
   <small><span class="badge badge-success">{{forma.get('$key').value}}</span></small>
-
 </div>
 <div class="col-md-10">
 <h1> <span class="badge badge-primary">{{forma.get('datos.nombre').value}}</span></h1>
@@ -43,14 +40,8 @@
           <label [ngClass]="{'active':(forma.get('datos.telefono').value?.length >0)}"  for="telefono" data-error="wrong" data-success="right"  >Telefono</label>
           <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.telefono')"></app-muestra-alerta>
   </div>
-
-
 </div>
-
 <div >
-
-
-
 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" data-toggle="tab" href="#direccionTab" role="tab">Dirección</a>
@@ -59,13 +50,12 @@
     <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Cuentas Bancarias</a>
   </li>
 </ul>
-
 <div class="tab-content"  >
   <div class="tab-pane active" id="direccionTab" role="tabpanel">
-      <app-detalle-cliente-direccion [forma]="forma" [ciudades]="ciudades"></app-detalle-cliente-direccion>
+<app-detalle-direccion [forma]="forma" [ciudades]="ciudades" [padre]="_empresasService" tipo="empresa"></app-detalle-direccion>
   </div>
   <div class="tab-pane" id="profile" role="tabpanel">
-    <app-detalle-cliente-banco [forma]="forma" ></app-detalle-cliente-banco>
+    <app-detalle-banco [forma]="forma"  [padre]="_empresasService" tipo="empresa"></app-detalle-banco>
   </div>
 </div>
 </div>

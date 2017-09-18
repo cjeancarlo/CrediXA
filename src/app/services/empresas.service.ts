@@ -20,10 +20,7 @@ export class EmpresasService extends  PrincipalService {
         return this.listar(`${this.modelo}`)
         }
 
-  listarDetalles(detalle:number):FirebaseListObservable<any[]>{
-    console.log(`${this.modelo}-${this.modeloDetalle[detalle]}/${this.empresa.$key}`);
-      return this.listar(`${this.modelo}-${this.modeloDetalle[detalle]}/${this.empresa.$key}`)
-              }
+
 
 
         guardarEmpresa (empresa:Empresa):Promise<string> {

@@ -62,7 +62,7 @@ listarDetalles(modelo:string,detalle:number,$key):FirebaseListObservable<any[]>{
 	//console.log(`${this.modelo}-${this.modeloDetalle[detalle]}/${this.cliente.$key}`);
 		return this.listar(`${modelo}-${this.modeloDetalle[detalle]}/${$key}`)
 						}
-//this._clientesService.eliminarDetalle(i,0);
+
 eliminarDetalle(modelo:string,$modeloBaseKey:string,$key:string,indice:number){
 	console.log(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }`);
 					    this.eliminar(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }` );

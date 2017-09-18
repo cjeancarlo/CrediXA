@@ -1,0 +1,37 @@
+<div class="container main-container">
+
+<section class="todoapp">
+  <header class="header">
+    <h1>{{titulo}}</h1>
+
+    <input class="new-todo" placeholder="Buscar Banco" autofocus="" (keyup.enter)="buscarBanco()" name="buscar" [(ngModel)]="buscar" >
+    <button type="button" class="agregar animated" data-toggle="modal" data-target="#Modal" (click)="b={}"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
+
+
+
+  </header>
+  <section class="main" *ngIf="_descriptivasService.bancos">
+    <ul class="todo-list">
+      <li *ngFor="let banco of _descriptivasService.bancos | async; let i = index" >
+        <div class="view row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <label>{{banco.codigo}}</label>
+          </div>
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <label>{{banco.nombre}}</label>
+          </div>
+          <button type="button"  class="editar"
+          data-toggle="modal" data-target="#Modal" (click)="b = banco" ></button>
+          <button type="button"  class="eliminar"
+          data-toggle="modal" data-target="#condfirmacionModal" (click)="b = banco"   ></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+</section>
+    <div *ngIf="b">
+<app-muestra-confirmacion [objeto]="b" nombre="banco"></app-muestra-confirmacion>
+        <app-banco-edicion-modal [banco]="b"></app-banco-edicion-modal>
+    </div>
+</div>

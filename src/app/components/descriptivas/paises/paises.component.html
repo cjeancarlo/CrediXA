@@ -1,0 +1,37 @@
+<div class="container main-container">
+
+<section class="todoapp">
+  <header class="header">
+    <h1>{{titulo}}</h1>
+    
+    <input class="new-todo" placeholder="Buscar Pais" autofocus="" (keyup.enter)="buscarPais()" name="buscar" [(ngModel)]="buscar" >    
+    <button type="button" class="agregar animated" data-toggle="modal" data-target="#Modal" (click)="p =  {}"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
+    
+    
+    
+  </header>
+  <section class="main" *ngIf="_descriptivasService.paises">
+    <ul class="todo-list">
+      <li *ngFor="let pais of _descriptivasService.paises | async; let i = index" >
+        <div class="view row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <label>{{pais.codigo}}</label>  
+          </div>
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <label>{{pais.nombre}}</label>
+          </div>
+          <button type="button"  class="editar"  
+          data-toggle="modal" data-target="#Modal" (click)="p = pais" ></button>
+          <button type="button"  class="eliminar" 
+          data-toggle="modal" data-target="#condfirmacionModal" (click)="p = pais"   ></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+        
+</section>
+    <div *ngIf="p">
+        <app-muestra-confirmacion [objeto]="p" nombre="pais"></app-muestra-confirmacion>
+        <app-pais-edicion-modal [pais]="p"></app-pais-edicion-modal>
+    </div>
+</div>

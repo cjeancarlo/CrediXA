@@ -1,0 +1,42 @@
+<div class="container main-container">
+
+<section class="todoapp">
+  <header class="header">
+    <h1>{{titulo}}</h1>
+
+    <input class="new-todo" placeholder="Buscar empleado" autofocus="" (keyup.enter)="buscarCliente()" name="buscar" [(ngModel)]="buscar" >
+    <button type="button" class="agregar animated"
+      data-toggle="modal"
+      data-target="#Modal" (click)="emp= {}">
+      <i class="fa fa-plus-circle faa-pulse animated-hover"></i>
+    </button>
+
+  </header>
+  <section class="main" *ngIf="_empleadosService.items">
+    <ul class="todo-list">
+      <li *ngFor="let empleado of _empleadosService.items | async; let i = index " >
+        <div class="view row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <label>{{empleado.cedula}}</label>
+          </div>
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <label>{{empleado.nombre}} {{empleado.apellido}}</label>
+          </div>
+          <button type="button"  class="editar"
+            data-toggle="modal"
+            data-target="#Modal" (click)="emp=empleado">
+          </button>
+          <button type="button"  class="eliminar"
+          data-toggle="modal" data-target="#condfirmacionModal" (click)="emp=empleado"   ></button>
+        </div>
+      </li>
+    </ul>
+
+  </section>
+
+</section>
+    <div *ngIf="emp">
+        <app-muestra-confirmacion [objeto]="emp" nombre="empleado"></app-muestra-confirmacion>
+        <app-empleado-edicion-modal [empleado]="emp"></app-empleado-edicion-modal>
+    </div>
+</div>

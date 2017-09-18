@@ -7,7 +7,7 @@
     <input class="new-todo" placeholder="Buscar cliente" autofocus="" (keyup.enter)="buscarCliente()" name="buscar" [(ngModel)]="buscar" >
     <button type="button" class="agregar animated"
       data-toggle="modal"
-      data-target="#Modal" (click)="cli = {}">
+      data-target="#modalEdicion" (click)="cli = {}">
       <i class="fa fa-plus-circle faa-pulse animated-hover"></i>
     </button>
 
@@ -23,9 +23,10 @@
           <label>{{cliente.nombre}}</label>
           </div>
           <button type="button"  class="editar"
-            data-toggle="modal"
-            data-target="#modalEdicion" (click)="cli=cliente">
+            data-toggle="modal" data-target="#modalEdicion"
+            (click)="cli=cliente;MuestraDatosModal(cliente)">
           </button>
+
           <button type="button"  class="eliminar"
           data-toggle="modal" data-target="#condfirmacionModal" (click)="cli=cliente"   ></button>
         </div>
@@ -37,6 +38,7 @@
 </section>
     <div *ngIf="cli">
         <app-muestra-confirmacion [objeto]="cli" nombre="cliente"></app-muestra-confirmacion>
-        <app-cliente-edicion-modal [cliente]="cli"></app-cliente-edicion-modal>
+        <app-edicion  [servicio]="_clientesService" [objeto]="cli" tipo="cliente"></app-edicion>
+        <!--<app-cliente-edicion-modal [cliente]="cli"></app-cliente-edicion-modal>-->
     </div>
 </div>

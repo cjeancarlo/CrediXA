@@ -1,6 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { EmpresasService } from '../../services/empresas.service';
-import { Empresa } from '../../clases/empresa.class';
+//import { Empresa } from '../../clases/empresa.class';
+import { Formas } from '../../clases/formas.class';
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/operator/take';
@@ -12,40 +13,29 @@ import 'rxjs/add/operator/take';
   styles: []
 })
 export class EmpresaComponent implements OnInit {
+f:Formas
+forma:FormGroup
 
-  forma:FormGroup= new FormGroup({
-      '$key': new FormControl(),
-      'datos' : new FormGroup({
-            'codigo': new FormControl('', [Validators.required,Validators.minLength(3)]),
-            'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
-            'email': new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
-            'telefono': new FormControl()
-      }),
-      'direccion' :new FormArray([
+clickeado:boolean = false;
+/*formaEmpresa:Empresa= new Empresa();*/
+operacion:string = "Agregando";
+ciudades:any=[]
 
-          ]),
-      'banco' :new FormArray([
-
-              ])
-      });
-  clickeado:boolean = false;
-  formaEmpresa:Empresa= new Empresa();
-  operacion:string = "Agregando";
-  ciudades:any=[]
-
-    constructor(private _empresasService:EmpresasService) {
-
-      if (this._empresasService.empresa.$key!=null)
-          {
-          this.operacion ="Editando";
-          this.forma.patchValue(this._empresasService.empresa);
-          }else{
-             this.formaEmpresa= new Empresa();
-           }
-
-       }
+    constructor(private _empresasService:EmpresasService) {}
 
        ngOnInit() {
+         this.f = new Formas();
+         this.forma = this.f.empresa();
+
+         if (this._empresasService.empresa.$key!=null)
+             {
+             this.operacion ="Editando";
+             this.forma.patchValue(this._empresasService.empresa);
+           }/*else{
+                    this.formaEmpresa= new Empresa();
+                 }*/
+
+
          this.onChanges();
        }
 
@@ -57,7 +47,7 @@ export class EmpresaComponent implements OnInit {
 
 
       guardar(){
-          Promise.resolve(this._empresasService.guardarEmpresa(this.forma.value))
+          Promise.resolve(this._empresasService.guardarempresa(this.forma.value))
             .then((res) => {
              console.log('respuesta',res);
             this._empresasService.empresa.$key = res;

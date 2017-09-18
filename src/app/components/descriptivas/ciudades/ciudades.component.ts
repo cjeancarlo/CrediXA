@@ -1,17 +1,19 @@
 import { DescriptivasService } from '../../../services/descriptivas.service';
 import { Component } from '@angular/core';
 import { NgForm} from '@angular/forms';
-
+import {DatosComponent} from  '../../../components/modal/datos.component';
 @Component({
   selector: 'app-ciudades',
   templateUrl: './ciudades.component.html',
   styles: []
 })
-export class CiudadesComponent  {
 
-buscar:string;  
+export class CiudadesComponent extends  DatosComponent   {
+
+buscar:string;
 titulo:string='Ciudades'
-  constructor(private _descriptivasService:DescriptivasService) {  
+  constructor(private _descriptivasService:DescriptivasService) {
+    super()
 		this._descriptivasService.paises = this._descriptivasService.listarPaises();
   }
 

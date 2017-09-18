@@ -23,7 +23,7 @@ export class EmpresasService extends  PrincipalService {
 
 
 
-        guardarEmpresa (empresa:Empresa):Promise<string> {
+        guardarempresa(empresa:Empresa):Promise<string> {
           console.log(empresa);
            return Promise.resolve(this.guardar(empresa.datos,this.modelo,empresa.$key))
               .then(($key) => {

@@ -41,7 +41,8 @@
 </section>
     <div *ngIf="emp">
 <app-muestra-confirmacion  [objeto]="emp" nombre="empresa"></app-muestra-confirmacion>
-<app-empresa-edicion-modal [empresa]="emp"></app-empresa-edicion-modal>
+<!--<app-empresa-edicion-modal [empresa]="emp"></app-empresa-edicion-modal>-->
+<app-edicion  [servicio]="_empresasService" [objeto]="emp" tipo="empresa"></app-edicion>
 
     </div>
 </div>

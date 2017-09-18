@@ -1,54 +1,53 @@
-
-
-
-
-
 <div class="container main-container">
-
 <div>
 <select class="todo-select"
  [ngModel]="selectPais"
  (ngModelChange)="onSelect($event)">
-    <option *ngFor="let pais of _descriptivasService.paises | async; let i = index " 
-    value={{pais.$key}} > 
+    <option *ngFor="let pais of _descriptivasService.paises | async; let i = index "
+    value={{pais.$key}} >
     {{pais.nombre}}</option>
   </select>
 </div>
 <section class="todoapp">
 <header  *ngIf="!(_descriptivasService.ciudades | async)" class="header">
     <h1>Seleccione un País</h1>
-</header>  
+</header>
 <header  *ngIf="(_descriptivasService.ciudades | async)" class="header">
     <h1>{{titulo}}</h1>
-    <input class="new-todo" placeholder="Buscar Ciudad" autofocus="" (keyup.enter)="buscarCiudad()" name="buscar" [(ngModel)]="buscar" >    
-    <button type="button" class="agregar animated" data-toggle="modal" data-target="#Modal" 
+    <input class="new-todo" placeholder="Buscar Ciudad" autofocus="" (keyup.enter)="buscarCiudad()" name="buscar" [(ngModel)]="buscar" >
+    <button type="button" class="agregar animated" data-toggle="modal" data-target="#modalEdicion"
     (click)="c = {}"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
 </header>
 
 
-<div  *ngIf="(_descriptivasService.ciudades | async)" >  
+<div  *ngIf="(_descriptivasService.ciudades | async)" >
   <section class="main" >
     <ul class="todo-list">
       <li *ngFor="let ciudad of _descriptivasService.ciudades | async; let i = index" >
         <div class="view row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-          <label>{{ciudad.codigo}}</label>  
+          <label>{{ciudad.codigo}}</label>
           </div>
           <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
           <label>{{ciudad.nombre}}</label>
           </div>
-          <button type="button"  class="editar"  
-          data-toggle="modal" data-target="#Modal" (click)="c = ciudad" ></button>
-          <button type="button"  class="eliminar" 
+
+          <button type="button"  class="editar"
+            data-toggle="modal" data-target="#modalEdicion"
+            (click)="c=ciudad;MuestraDatosModal(ciudad)">
+          </button>
+
+          <button type="button"  class="eliminar"
           data-toggle="modal" data-target="#condfirmacionModal" (click)="c = ciudad"   ></button>
         </div>
       </li>
     </ul>
   </section>
-</div>        
+</div>
 </section>
     <div *ngIf="c">
         <app-muestra-confirmacion [objeto]="c" nombre="ciudad"></app-muestra-confirmacion>
-        <app-ciudad-edicion-modal [ciudad]="c"></app-ciudad-edicion-modal>
+    <app-edicion  [servicio]="_descriptivasService" [objeto]="c" tipo="ciudad"></app-edicion>
+
     </div>
 </div>

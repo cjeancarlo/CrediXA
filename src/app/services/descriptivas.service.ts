@@ -35,7 +35,7 @@ buscarBanco(texto:string, cantidad:number=10):FirebaseListObservable<any[]> {
                 return this.buscar(texto, this.modeloBanco)
             }
 
-guardarBanco (banco:Banco):Promise<string> {
+guardarbanco (banco:Banco):Promise<string> {
             	  return this.guardar(banco.datos, `${ this.modeloBanco}`,banco.$key);
 }
 
@@ -52,7 +52,7 @@ listarCiudades():FirebaseListObservable<any[]>{
         return this.listar(urlKey)
         }
 
-guardarCiudad(ciudad:Ciudad):Promise<string> {
+guardarciudad(ciudad:Ciudad):Promise<string> {
   return this.guardar(ciudad.datos, `${this.modelo}/${this.pais.$key}/${this.ciudadModelo}`,ciudad.$key);
 }
 

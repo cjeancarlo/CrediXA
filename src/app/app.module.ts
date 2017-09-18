@@ -27,24 +27,23 @@ import { AuthService } from './services/auth.service';
 import { firebase } from './config/firebase.config';
 import { MuestraConfirmacionComponent } from './components/muestra-alerta/muestra-confirmacion.component';
 import { MuestraAlertaComponent } from './components/muestra-alerta/muestra-alerta.component';
-import { ClienteEdicionModalComponent } from './components/clientes/cliente-edicion-modal.component';
+
 
 import { PaisesComponent } from './components/descriptivas/paises/paises.component';
 import { PaisEdicionModalComponent } from './components/descriptivas/paises/pais-edicion-modal.component';
 import { CiudadesComponent } from './components/descriptivas/ciudades/ciudades.component';
-import { CiudadEdicionModalComponent } from './components/descriptivas/ciudades/ciudad-edicion-modal.component';
 import { BancosComponent } from './components/descriptivas/bancos/bancos.component';
-import { BancoEdicionModalComponent } from './components/descriptivas/bancos/banco-edicion-modal.component';
 import { RegistroComponent } from './components/auth/registro/registro.component';
 import { LoginComponent } from './components/auth/login//login.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { EmpleadoEdicionModalComponent } from './components/empleados/empleado-edicion-modal.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
-import { EmpresaEdicionModalComponent } from './components/empresas/empresa-edicion-modal.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { EmpresaComponent } from './components/empresas/empresa.component';
 import { DetalleBancoComponent } from './components/detalle-banco/detalle-banco.component';
 import { DetalleDireccionComponent } from './components/detalle-direccion/detalle-direccion.component';
+import { EdicionComponent } from './components/modal/edicion.component';
+import { DatosComponent } from './components/modal/datos.component';
 
 
 
@@ -59,24 +58,22 @@ import { DetalleDireccionComponent } from './components/detalle-direccion/detall
     ClienteComponent,
     MuestraAlertaComponent,
     ClientesComponent,
-    ClienteEdicionModalComponent,
     MuestraConfirmacionComponent,
     PaisesComponent,
     PaisEdicionModalComponent,
     CiudadesComponent,
-    CiudadEdicionModalComponent,
     BancosComponent,
-    BancoEdicionModalComponent,
     RegistroComponent,
     LoginComponent,
     EmpleadosComponent,
     EmpleadoEdicionModalComponent,
     EmpresasComponent,
-    EmpresaEdicionModalComponent,
     ModalComponent,
     EmpresaComponent,
     DetalleBancoComponent,
-    DetalleDireccionComponent
+    DetalleDireccionComponent,
+    EdicionComponent,
+    DatosComponent
   ],
   imports: [
     //MDBBootstrapModule.forRoot(),

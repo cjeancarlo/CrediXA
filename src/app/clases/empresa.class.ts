@@ -1,6 +1,7 @@
 import { Banco } from './banco.class';
 import { Direccion } from './direccion.class';
 
+
 export class Empresa {
   $key:string;
   datos:{
@@ -15,6 +16,7 @@ export class Empresa {
 
 
 
+
 constructor(values: Object = {}) {
 		//super()
     Object.assign(this, values);
@@ -22,4 +24,6 @@ constructor(values: Object = {}) {
 		//console.log('este es el motor',this.motor)
 
   }
+
+
 }

@@ -3,12 +3,8 @@
 <section class="todoapp">
   <header class="header">
     <h1>{{titulo}}</h1>
-
     <input class="new-todo" placeholder="Buscar Banco" autofocus="" (keyup.enter)="buscarBanco()" name="buscar" [(ngModel)]="buscar" >
     <button type="button" class="agregar animated" data-toggle="modal" data-target="#modalEdicion" (click)="b={}"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
-
-
-
   </header>
   <section class="main" *ngIf="_descriptivasService.bancos">
     <ul class="todo-list">
@@ -20,8 +16,6 @@
           <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
           <label>{{banco.nombre}}</label>
           </div>
-
-
           <button type="button"  class="editar"
             data-toggle="modal" data-target="#modalEdicion"
             (click)="b=banco;MuestraDatosModal(banco)">
@@ -38,6 +32,5 @@
     <div *ngIf="b">
         <app-muestra-confirmacion [objeto]="b" nombre="banco"></app-muestra-confirmacion>
         <app-edicion  [servicio]="_descriptivasService" [objeto]="b" tipo="banco"></app-edicion>
-        <!--<app-banco-edicion-modal [banco]="b"></app-banco-edicion-modal>-->
     </div>
 </div>

@@ -2,7 +2,7 @@ import { Component   } from '@angular/core';
 import { EmpresasService } from '../../services/empresas.service';
 import { NgForm} from '@angular/forms';
 import { Empresa } from '../../clases/empresa.class';
-import {DatosComponent} from  '../../components/modal/datos.component';
+import {DatosComponent} from  '../../components/edicion/modal/datos.component';
 
 
 @Component({

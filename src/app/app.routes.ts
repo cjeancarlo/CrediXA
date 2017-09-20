@@ -10,6 +10,7 @@ import { CiudadesComponent } from './components/descriptivas/ciudades/ciudades.c
 import { BancosComponent } from  './components/descriptivas/bancos/bancos.component';
 import { EmpresasComponent } from  './components/empresas/empresas.component';
 import { EmpresaComponent } from  './components/empresas/empresa.component';
+import { EdicionGeneralComponent } from  './components/edicion/edicion-general.component';
 
 
   const APP_ROUTES: Routes = [
@@ -22,6 +23,7 @@ import { EmpresaComponent } from  './components/empresas/empresa.component';
   { path: 'bancos', component: BancosComponent },
   { path: 'empresas', component: EmpresasComponent },
   { path: 'empresa', component: EmpresaComponent },
+  { path: 'edita/:tipo', component: EdicionGeneralComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' }
 
 ]

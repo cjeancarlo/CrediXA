@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ClientesService } from '../../services/clientes.service';
 import { NgForm} from '@angular/forms';
 import { Cliente } from '../../clases/cliente.class';
-import {DatosComponent} from  '../../components/modal/datos.component';
+
+import {DatosComponent} from  '../../components/edicion/modal/datos.component';
 
 @Component({
   selector: 'app-clientes',

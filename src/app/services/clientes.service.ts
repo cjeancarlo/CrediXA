@@ -23,7 +23,7 @@ export class ClientesService extends  PrincipalService {
 
 
 
-        guardarCliente (cliente:Cliente):Promise<string> {
+        guardarcliente (cliente:Cliente):Promise<string> {
            return Promise.resolve(this.guardar(cliente.datos,this.modelo,cliente.$key))
               .then(($key) => {
                       if(cliente.direccion){

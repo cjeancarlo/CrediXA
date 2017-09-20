@@ -7,7 +7,7 @@
     <input class="new-todo" placeholder="Buscar empleado" autofocus="" (keyup.enter)="buscarCliente()" name="buscar" [(ngModel)]="buscar" >
     <button type="button" class="agregar animated"
       data-toggle="modal"
-      data-target="#Modal" (click)="emp= {}">
+      data-target="#modalEdicion" (click)="emp= {}">
       <i class="fa fa-plus-circle faa-pulse animated-hover"></i>
     </button>
 
@@ -22,10 +22,12 @@
           <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
           <label>{{empleado.nombre}} {{empleado.apellido}}</label>
           </div>
+
           <button type="button"  class="editar"
-            data-toggle="modal"
-            data-target="#Modal" (click)="emp=empleado">
+            data-toggle="modal" data-target="#modalEdicion"
+            (click)="emp=empleado;MuestraDatosModal(empleado)">
           </button>
+
           <button type="button"  class="eliminar"
           data-toggle="modal" data-target="#condfirmacionModal" (click)="emp=empleado"   ></button>
         </div>
@@ -37,6 +39,6 @@
 </section>
     <div *ngIf="emp">
         <app-muestra-confirmacion [objeto]="emp" nombre="empleado"></app-muestra-confirmacion>
-        <app-empleado-edicion-modal [empleado]="emp"></app-empleado-edicion-modal>
+        <app-edicion  [servicio]="_empleadosService" [objeto]="emp" tipo="empleado"></app-edicion>
     </div>
 </div>

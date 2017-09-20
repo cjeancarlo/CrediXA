@@ -1,0 +1,70 @@
+
+<div class="container main-container">
+<div class="row">
+<div class="col-md-2">
+  <h4>{{operacion}}  </h4>
+  <small><span class="badge badge-success">{{forma.get('$key').value}}</span></small>
+</div>
+<div class="col-md-10">
+<h1> <span class="badge badge-primary">{{forma.get('datos.nombre').value}}</span></h1>
+</div>
+<hr>
+
+</div>
+
+<div class="row main-container" >
+<div class="col-sm-12">
+<form (ngSubmit)="guardar()"  [formGroup]="forma" >
+
+  <div formGroupName="datos">
+    <div class="md-form form-group" *ngFor="let campo of campos">
+              <input  type="text" id="campo" class="form-control" formControlName={{campo}}>
+              <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"  for="campo" data-error="wrong" data-success="right"  >{{campo}}</label>
+              <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
+      </div>
+</div>
+<div >
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#direccionTab" role="tab">Dirección</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Cuentas Bancarias</a>
+  </li>
+</ul>
+<div class="tab-content"  >
+  <div class="tab-pane active" id="direccionTab" role="tabpanel">
+<app-detalle-direccion [forma]="forma" [ciudades]="ciudades" [padre]="servicio" tipo="tipo"></app-detalle-direccion>
+  </div>
+  <div class="tab-pane" id="profile" role="tabpanel">
+    <app-detalle-banco [forma]="forma"  [padre]="servicio" tipo="tipo"></app-detalle-banco>
+  </div>
+</div>
+</div>
+<div class="row ">
+ <div class="col-md-6 text-left">
+      <button type="button"  class="btn btn-success"
+       (click)="reset()" >Nuevo</button>
+      </div>
+      <div class="col-md-6 text-right">
+       <button type="button"  class="btn btn-secondary"
+       [routerLink]="['/'+tipo+'s']">Volver</button>
+      <button
+      [disabled]="clickeado || (!forma.dirty|| !forma.valid)"
+      type="submit" class="btn btn-outline-primary">Guardar</button>
+      </div>
+ </div>
+
+
+<pre>
+      valido {{forma.valid }}
+      dirty {{forma.dirty }}
+      clickeado {{clickeado}}
+      {{!forma.valid && forma.dirty}}
+      direccion {{forma.controls.direccion.valid}}
+</pre>
+
+ </form>
+</div>
+ </div>
+ </div>

@@ -6,7 +6,6 @@ import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/operator/take';
 
-
 @Component({
   selector: 'app-empresa',
   templateUrl: './empresa.component.html',

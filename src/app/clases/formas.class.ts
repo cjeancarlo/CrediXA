@@ -62,6 +62,17 @@ return this[tipo]
     });
   }
 
+
+  paisCampos:string[] =['codigo','nombre']
+  pais():FormGroup {
+    return   new FormGroup({
+    '$key': new FormControl(),
+    'datos' : new FormGroup({
+          'codigo': new FormControl('', [Validators.required,Validators.minLength(3)]),
+          'nombre': new FormControl('', [Validators.required,Validators.minLength(5)])
+    })
+    });
+  }
   ciudadCampos:string[] =['codigo','nombre']
   ciudad():FormGroup {
     return   new FormGroup({
@@ -72,6 +83,27 @@ return this[tipo]
     })
     });
   }
+  empleadoCampos:string[] =['codigo','cedula','nombre', 'apellido']
+  empleado():FormGroup {
+    return   new FormGroup({
+    '$key': new FormControl(),
+    'datos' : new FormGroup({
+          'codigo': new FormControl('', [Validators.required,Validators.minLength(3)]),
+          'cedula': new FormControl('', [Validators.required,Validators.minLength(5)]),
+          'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
+          'apellido': new FormControl('', [Validators.required,Validators.minLength(5)]),
+          'email': new FormControl('', [Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')])
+    }),
+    'banco' :new FormArray([
 
+        ]),
+    'direccion' :new FormArray([
+
+        ]),
+    'institucion' :new FormArray([
+
+            ])
+    });
+  }
 
 }

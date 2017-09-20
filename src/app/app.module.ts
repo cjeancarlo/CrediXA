@@ -30,20 +30,18 @@ import { MuestraAlertaComponent } from './components/muestra-alerta/muestra-aler
 
 
 import { PaisesComponent } from './components/descriptivas/paises/paises.component';
-import { PaisEdicionModalComponent } from './components/descriptivas/paises/pais-edicion-modal.component';
 import { CiudadesComponent } from './components/descriptivas/ciudades/ciudades.component';
 import { BancosComponent } from './components/descriptivas/bancos/bancos.component';
 import { RegistroComponent } from './components/auth/registro/registro.component';
 import { LoginComponent } from './components/auth/login//login.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
-import { EmpleadoEdicionModalComponent } from './components/empleados/empleado-edicion-modal.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { EmpresaComponent } from './components/empresas/empresa.component';
 import { DetalleBancoComponent } from './components/detalle-banco/detalle-banco.component';
 import { DetalleDireccionComponent } from './components/detalle-direccion/detalle-direccion.component';
-import { EdicionComponent } from './components/modal/edicion.component';
-import { DatosComponent } from './components/modal/datos.component';
+import { EdicionComponent } from './components/edicion/modal/edicion.component';
+import { DatosComponent } from './components/edicion/modal/datos.component';
+import { EdicionGeneralComponent } from './components/edicion/edicion-general.component';
 
 
 
@@ -60,20 +58,18 @@ import { DatosComponent } from './components/modal/datos.component';
     ClientesComponent,
     MuestraConfirmacionComponent,
     PaisesComponent,
-    PaisEdicionModalComponent,
     CiudadesComponent,
     BancosComponent,
     RegistroComponent,
     LoginComponent,
     EmpleadosComponent,
-    EmpleadoEdicionModalComponent,
     EmpresasComponent,
-    ModalComponent,
     EmpresaComponent,
     DetalleBancoComponent,
     DetalleDireccionComponent,
     EdicionComponent,
-    DatosComponent
+    DatosComponent,
+    EdicionGeneralComponent
   ],
   imports: [
     //MDBBootstrapModule.forRoot(),

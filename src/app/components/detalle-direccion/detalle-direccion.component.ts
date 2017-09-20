@@ -21,7 +21,8 @@ export class DetalleDireccionComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.padre[this.tipo].$key!=null){  let control = <FormArray>this.forma.controls['direccion'];
+    console.log(this.padre/*[this.tipo]*/,this.padre)
+    if (this.padre/*[this.tipo]*/.$key!=null){  let control = <FormArray>this.forma.controls['direccion'];
       var direcciones:any = this.listarDirecciones()
       var s:string[] = []
       //console.log('pasando por el constructor')
@@ -51,7 +52,7 @@ onSelect(value,index) {
 
 
 listarDirecciones(  ){
-  return this._descriptivasService.listarDetalles(this.padre.modelo,0,this.padre[this.tipo].$key)
+  return this._descriptivasService.listarDetalles(this.padre.modelo,0,this.padre/*[this.tipo]*/.$key)
 }
 
 agregarDireccion() {
@@ -72,7 +73,7 @@ agregarDireccion() {
 
  eliminarDireccion(i){
  let control = <FormArray>this.forma.controls['direccion'];
-     this._descriptivasService.eliminarDetalle(this.padre.modelo,this.padre[this.tipo].$key, i,0);
+     this._descriptivasService.eliminarDetalle(this.padre.modelo,this.padre/*[this.tipo]*/.$key, i,0);
      control.removeAt(i);
  }
  }

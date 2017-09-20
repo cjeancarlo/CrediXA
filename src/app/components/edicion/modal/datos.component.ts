@@ -1,5 +1,5 @@
 import { Component,ViewChild} from '@angular/core';
-import { EdicionComponent } from '../../components/modal/edicion.component';
+import { EdicionComponent } from './edicion.component';
 @Component({
   selector: 'app-datos',
   template:''

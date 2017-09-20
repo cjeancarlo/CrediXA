@@ -1,6 +1,6 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
-import { Formas } from '../../clases/formas.class';
+import { Formas } from '../../../clases/formas.class';
 import {ActivatedRoute ,Router} from '@angular/router';
 
 
@@ -49,7 +49,7 @@ export class EdicionComponent implements OnInit {
      this.servicio[this.tipo].$key =  (this.objeto.$key)?this.objeto.$key :null
      this.servicio[this.tipo].datos = this.objeto;
      /*console.log(this._empresasService.empresa);*/
-     this.router.navigate(['/'+this.tipo]);
+     this.router.navigate(['/edita',this.tipo]);
  }
 
 }

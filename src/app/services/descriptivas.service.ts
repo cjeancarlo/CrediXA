@@ -69,7 +69,7 @@ listarPaises():FirebaseListObservable<any[]>{
         return this.listar(`${this.modelo}`)
         }
 
-guardarPais (pais:Pais):Promise<string> {
+guardarpais (pais:Pais):Promise<string> {
 	  return this.guardar(pais.datos, `${ this.modelo}`,pais.$key);
 	}
 

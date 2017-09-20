@@ -1,7 +1,7 @@
 import { DescriptivasService } from '../../../services/descriptivas.service';
 import { Component } from '@angular/core';
 import { NgForm} from '@angular/forms';
-import {DatosComponent} from  '../../../components/modal/datos.component';
+import {DatosComponent} from  '../../../components/edicion/modal/datos.component';
 @Component({
   selector: 'app-ciudades',
   templateUrl: './ciudades.component.html',

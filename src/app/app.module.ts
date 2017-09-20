@@ -14,7 +14,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 
 import { APP_ROUTING } from './app.routes';
-import { ClienteComponent } from './components/clientes/cliente.component';
 import { ClientesComponent } from './components/clientes/clientes.component';
 
 import { PrincipalService } from './services/principal.service';
@@ -36,7 +35,6 @@ import { RegistroComponent } from './components/auth/registro/registro.component
 import { LoginComponent } from './components/auth/login//login.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
-import { EmpresaComponent } from './components/empresas/empresa.component';
 import { DetalleBancoComponent } from './components/detalle-banco/detalle-banco.component';
 import { DetalleDireccionComponent } from './components/detalle-direccion/detalle-direccion.component';
 import { EdicionComponent } from './components/edicion/modal/edicion.component';
@@ -53,7 +51,6 @@ import { EdicionGeneralComponent } from './components/edicion/edicion-general.co
     AppComponent,
     NavBarComponent,
     HomeComponent,
-    ClienteComponent,
     MuestraAlertaComponent,
     ClientesComponent,
     MuestraConfirmacionComponent,
@@ -64,7 +61,6 @@ import { EdicionGeneralComponent } from './components/edicion/edicion-general.co
     LoginComponent,
     EmpleadosComponent,
     EmpresasComponent,
-    EmpresaComponent,
     DetalleBancoComponent,
     DetalleDireccionComponent,
     EdicionComponent,

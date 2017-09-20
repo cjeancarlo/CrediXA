@@ -19,12 +19,10 @@ export class EmpresasComponent extends DatosComponent  {
     constructor(private _empresasService:EmpresasService) {
       super()
       this._empresasService.items = this._empresasService.listarEmpresas();
-   }
+    }
 
-  buscarCliente(){
+  buscarEmpresa(){
     this._empresasService.items = this._empresasService.buscarEmpresa(this.buscar);
   }
-
-
 
 }

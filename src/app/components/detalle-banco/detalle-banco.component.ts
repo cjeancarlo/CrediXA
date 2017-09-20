@@ -18,7 +18,7 @@ export class DetalleBancoComponent implements OnInit {
 
   ngOnInit() {
     //console.log(this.padre, this.tipo)
-      if (this.padre/*[this.tipo]*/.$key!=null){
+      if (this.padre[this.tipo].$key!=null){
         let control = <FormArray>this.forma.controls['banco'];
         var banco:any = this.listarBancos()
         var s:string[] = []
@@ -31,7 +31,7 @@ export class DetalleBancoComponent implements OnInit {
                   //console.log('detalle data de las direcciones',i);
                   control.push(this.initBanco());
                   this._descriptivasService.banco.$key = b.banco;
-                      s.push(b)
+                                          s.push(b)
                   }
                 )
                 control.patchValue(s);
@@ -42,7 +42,7 @@ export class DetalleBancoComponent implements OnInit {
         }
 
   listarBancos(  ){
-    return this._descriptivasService.listarDetalles(this.padre.modelo,1,this.padre/*[this.tipo]*/.$key)
+    return this._descriptivasService.listarDetalles(this.padre.modelo,1,this.padre[this.tipo].$key)
   }
 
 
@@ -59,10 +59,9 @@ export class DetalleBancoComponent implements OnInit {
       });
   }
 
-
   eliminarBanco(i){
   let control = <FormArray>this.forma.controls['banco'];
-      this._descriptivasService.eliminarDetalle(this.padre.modelo,this.padre/*[this.tipo]*/.$key, i,1);
+      this._descriptivasService.eliminarDetalle(this.padre.modelo,this.padre[this.tipo].$key, i,1);
       control.removeAt(i);
   }
 }

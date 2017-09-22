@@ -4,7 +4,7 @@
   <header class="header">
     <h1>{{titulo}}</h1>
     <input class="new-todo" placeholder="Buscar Banco" autofocus="" (keyup.enter)="buscarBanco()" name="buscar" [(ngModel)]="buscar" >
-    <button type="button" class="agregar animated" data-toggle="modal" data-target="#modalEdicion" (click)="b={}"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
+    <button type="button" class="agregar animated" data-toggle="modal" data-target="#modalEdicion" (click)="b={};LimpiaDatosModal()"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
   </header>
   <section class="main" *ngIf="_descriptivasService.bancos">
     <ul class="todo-list">

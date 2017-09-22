@@ -4,36 +4,41 @@ import { PrincipalService } from './principal.service';
 
 import { Pais } from '../clases/pais.class';
 import { Ciudad } from '../clases/ciudad.class';
-
 import { Banco } from '../clases/banco.class';
 
 
 @Injectable()
 export class DescriptivasService extends  PrincipalService  {
 
+//T[] ==Array<T>
 
   paises: FirebaseListObservable<any[]>;
   pais:Pais = new Pais();
+  modeloPais:string = '/paises';
 
   bancos: FirebaseListObservable<any[]>;
-  banco:Banco = new Banco();
-
-  ciudades: FirebaseListObservable<any[]>;
-  ciudad:Ciudad = new Ciudad();
-
-  modelo:string = '/paises';
-  ciudadModelo:string = '/ciudades';
-
+  //banco:Banco = new Banco();
   modeloBanco:string = '/bancos';
 
+  ciudades= []
+//  ciudad:Ciudad = new Ciudad();
+  modeloCiudad:string = '/ciudades';
 
+  empresas: FirebaseListObservable<any[]>;
+  modeloEmpresa:string = '/empresas';
+
+
+
+listarEmpresas():FirebaseListObservable<any[]>{
+            return this.listar(`${this.modeloEmpresa}`)
+}
 
 listarBancos():FirebaseListObservable<any[]>{
           return this.listar(`${this.modeloBanco}`)
-          }
+}
 buscarBanco(texto:string, cantidad:number=10):FirebaseListObservable<any[]> {
                 return this.buscar(texto, this.modeloBanco)
-            }
+}
 
 guardarbanco (banco:Banco):Promise<string> {
             	  return this.guardar(banco.datos, `${ this.modeloBanco}`,banco.$key);
@@ -41,40 +46,41 @@ guardarbanco (banco:Banco):Promise<string> {
 
 eliminarBanco($key:string) {
       this.eliminar(`${this.modeloBanco}`,`${ $key }`);
-		}
+}
 
 buscarCiudad(texto:string, cantidad:number=10):FirebaseListObservable<any[]> {
-      return this.buscar(texto, `${this.modelo}/${this.pais.$key}/${this.ciudadModelo}`)
-  }
+      return this.buscar(texto, `${this.modeloPais}/${this.pais.$key}/${this.modeloCiudad}`)
+}
 
 listarCiudades():FirebaseListObservable<any[]>{
-        let urlKey:string = `${this.modelo}/${this.pais.$key}/${this.ciudadModelo}`
+//  console.log('listandoCiudades',`${this.modeloPais}/${this.pais.$key}/${this.modeloCiudad}`);
+        let urlKey:string = `${this.modeloPais}/${this.pais.$key}/${this.modeloCiudad}`
         return this.listar(urlKey)
         }
 
 guardarciudad(ciudad:Ciudad):Promise<string> {
-  return this.guardar(ciudad.datos, `${this.modelo}/${this.pais.$key}/${this.ciudadModelo}`,ciudad.$key);
+  return this.guardar(ciudad.datos, `${this.modeloPais}/${this.pais.$key}/${this.modeloCiudad}`,ciudad.$key);
 }
 
 eliminarCiudad($key:string) {
-      this.eliminar(`${this.modelo}/${this.pais.$key}/${this.ciudadModelo}`,`${ $key }`);
+      this.eliminar(`${this.modeloPais}/${this.pais.$key}/${this.modeloCiudad}`,`${ $key }`);
 }
 
 ///paises
 buscarPais(texto:string, cantidad:number=10):FirebaseListObservable<any[]> {
-      return this.buscar(texto, this.modelo)
+      return this.buscar(texto, this.modeloPais)
   }
 
 listarPaises():FirebaseListObservable<any[]>{
-        return this.listar(`${this.modelo}`)
+        return this.listar(`${this.modeloPais}`)
         }
 
 guardarpais (pais:Pais):Promise<string> {
-	  return this.guardar(pais.datos, `${ this.modelo}`,pais.$key);
+	  return this.guardar(pais.datos, `${ this.modeloPais}`,pais.$key);
 	}
 
 eliminarPais($key:string) {
-      this.eliminar(`${this.modelo}`,`${ $key }`);
+      this.eliminar(`${this.modeloPais}`,`${ $key }`);
 		}
 
 }

@@ -21,7 +21,7 @@ export class DetalleDireccionComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.tipo,this.padre[this.tipo])
+    //console.log(this.tipo,this.padre[this.tipo])
     if (this.padre[this.tipo].$key!=null){  let control = <FormArray>this.forma.controls['direccion'];
       var direcciones:any = this.listarDirecciones()
       var s:string[] = []
@@ -38,6 +38,7 @@ export class DetalleDireccionComponent implements OnInit {
                     s.push(d)
                 }
               )
+
               control.patchValue(s);
           })
         }else{
@@ -61,7 +62,7 @@ agregarDireccion() {
  }
 
  initDireccion() {
-   console.log('agregando array de direccion')
+  // console.log('agregando array de direccion')
     return new FormGroup({
               'pais':   new FormControl('',[Validators.required]),
               'ciudad': new FormControl('',[Validators.required]),

@@ -18,6 +18,7 @@ import { ClientesComponent } from './components/clientes/clientes.component';
 
 import { PrincipalService } from './services/principal.service';
 import { ClientesService } from './services/clientes.service';
+import { InstitucionesService } from './services/instituciones.service';
 import { EmpleadosService } from './services/empleados.service';
 import { DescriptivasService } from './services/descriptivas.service';
 import { EmpresasService } from './services/empresas.service';
@@ -35,11 +36,13 @@ import { RegistroComponent } from './components/auth/registro/registro.component
 import { LoginComponent } from './components/auth/login//login.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
-import { DetalleBancoComponent } from './components/detalle-banco/detalle-banco.component';
-import { DetalleDireccionComponent } from './components/detalle-direccion/detalle-direccion.component';
+/*import { DetalleBancoComponent } from './components/detalle-banco/detalle-banco.component';
+imort { DetalleDireccionComponent } from './components/detalle-direccion/detalle-direccion.component';*/
 import { EdicionComponent } from './components/edicion/modal/edicion.component';
 import { DatosComponent } from './components/edicion/modal/datos.component';
 import { EdicionGeneralComponent } from './components/edicion/edicion-general.component';
+import { DetalleComponent } from './components/edicion/detalle/detalle.component';
+import { InstitucionesComponent } from './components/instituciones/instituciones.component';
 
 
 
@@ -61,11 +64,11 @@ import { EdicionGeneralComponent } from './components/edicion/edicion-general.co
     LoginComponent,
     EmpleadosComponent,
     EmpresasComponent,
-    DetalleBancoComponent,
-    DetalleDireccionComponent,
     EdicionComponent,
     DatosComponent,
-    EdicionGeneralComponent
+    EdicionGeneralComponent,
+    DetalleComponent,
+    InstitucionesComponent
   ],
   imports: [
     //MDBBootstrapModule.forRoot(),
@@ -78,7 +81,7 @@ import { EdicionGeneralComponent } from './components/edicion/edicion-general.co
 ],
   //schemas: [ NO_ERRORS_SCHEMA ],
   providers: [AngularFireAuth,
-    EmpresasService,EmpleadosService,ClientesService,DescriptivasService,PrincipalService,AuthService],
+    EmpresasService,InstitucionesService,EmpleadosService,ClientesService,DescriptivasService,PrincipalService,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

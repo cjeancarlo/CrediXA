@@ -11,8 +11,15 @@
         <form  [formGroup]="forma" >
             <div class="modal-body">
           <div formGroupName="datos">
-            <div class="md-form form-group" *ngFor="let campo of campos">
-                    <input  type="text" id="campo" class="form-control" formControlName={{campo}}>
+
+            <div class="md-form form-group" *ngFor="let campo of campos" [ngSwitch]="campo">
+
+              <select class="form-control" formControlName={{campo}} *ngSwitchCase="'empresa'">
+              <option *ngFor="let empresa of _descriptivasService.empresas | async"
+              [value]="empresa.$key" > {{empresa.nombre}}</option>
+              </select>
+
+              <input  type="text" id="campo" class="form-control" formControlName={{campo}} *ngSwitchDefault >
                     <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"  for="campo" data-error="wrong" data-success="right"  >{{campo}}</label>
                     <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
             </div>

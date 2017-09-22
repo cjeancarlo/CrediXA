@@ -1,4 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
+import { DescriptivasService } from '../index.services';
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Formas } from '../../../clases/formas.class';
 import {ActivatedRoute ,Router} from '@angular/router';
@@ -20,7 +21,9 @@ export class EdicionComponent implements OnInit {
   forma:FormGroup;
   campos:string[];
 
-  constructor(public router: Router) { }
+  constructor(public router: Router,private _descriptivasService:DescriptivasService) {
+        this._descriptivasService.empresas = this._descriptivasService.listarEmpresas();
+  }
 
   ngOnInit() {
     this.f = new Formas();

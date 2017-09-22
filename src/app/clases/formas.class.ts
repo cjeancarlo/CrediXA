@@ -4,9 +4,7 @@ export class Formas {
 tipo:string;
 
 
-constructor() {
 
-}
 botonMas:boolean =true;
 forma(tipo:string):FormGroup{
 return this[tipo]
@@ -21,6 +19,28 @@ return this[tipo]
              'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
              'email': new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
              'telefono': new FormControl()
+       }),
+       'direccion' :new FormArray([
+
+           ]),
+       'banco' :new FormArray([
+
+               ])
+       });
+
+  }
+
+  
+  institucionCampos:string[] =['codigo','nombre', 'email','empresa']
+  institucion():FormGroup{
+    return new FormGroup({
+       '$key': new FormControl(),
+       'datos' : new FormGroup({
+             'codigo': new FormControl('', [Validators.required,Validators.minLength(3)]),
+             'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
+             'email': new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
+             'telefono': new FormControl(),
+             'empresa': new FormControl('', [Validators.required]),
        }),
        'direccion' :new FormArray([
 
@@ -106,4 +126,27 @@ return this[tipo]
     });
   }
 
+  direccionDetalleCampos:any[] =[
+      {'campo':'pais','tipo':'select'},
+      {'campo':'ciudad','tipo':'select'},
+      {'campo':'calle','tipo':'text'}
+  ]
+  direccionDetalle():FormGroup {
+  return new FormGroup({
+            'pais':   new FormControl('',[Validators.required]),
+            'ciudad': new FormControl('',[Validators.required]),
+            'calle':  new FormControl('',[Validators.required])
+  });
+}
+
+bancoDetalleCampos:any[] =[
+    {'campo':'banco','tipo':'text'},
+    {'campo':'cuenta','tipo':'text'}
+]
+bancoDetalle():FormGroup {
+  return new FormGroup({
+            'banco':  new FormControl('',[Validators.required]),
+            'cuenta': new FormControl('',[Validators.required]),
+  });
+}
 }

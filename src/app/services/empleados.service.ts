@@ -12,8 +12,8 @@ export class EmpleadosService   extends  PrincipalService{
 
   empleado:Empleado = new Empleado();
   items: FirebaseListObservable<any[]>;
-  modelo:string = '/empleado';
-  modeloDetalle:string[]=['direcciones','bancos','gremios']
+  modelo:string = '/empleados';
+  modeloDetalle:string[]=['direcciones','bancos','instituciones']
    //constructor() { }
    buscarEmpleado(texto:string):FirebaseListObservable<any[]> {
          return this.buscar(texto, this.modelo)

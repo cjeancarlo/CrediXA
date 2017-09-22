@@ -1,0 +1,48 @@
+<div class="container main-container">
+
+<section class="todoapp">
+  <header class="header">
+    <h1>{{titulo}}</h1>
+
+    <input class="new-todo" placeholder="Buscar institucion" autofocus="" (keyup.enter)="buscarInstitucion()" name="buscar" [(ngModel)]="buscar" >
+    <button type="button" class="agregar animated"
+      data-toggle="modal"
+      data-target="#modalEdicion" (click)="LimpiaDatosModal()">
+      <i class="fa fa-plus-circle faa-pulse animated-hover"></i>
+    </button>
+
+  </header>
+  <section class="main" *ngIf="_institucionesService.items">
+    <ul class="todo-list">
+      <li *ngFor="let institucion of _institucionesService.items | async; let i = index " >
+        <div class="view row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+          <label>{{institucion.codigo}}</label>
+          </div>
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+          <label>{{institucion.nombre}}</label>
+          </div>
+
+
+          <button type="button"  class="editar"
+            data-toggle="modal" data-target="#modalEdicion"
+            (click)="ins=institucion;MuestraDatosModal(institucion)">
+          </button>
+
+
+          <button type="button"  class="eliminar"
+          data-toggle="modal" data-target="#condfirmacionModal" (click)="ins=institucion"></button>
+        </div>
+      </li>
+    </ul>
+
+  </section>
+
+</section>
+    <div *ngIf="ins">
+<app-muestra-confirmacion  [objeto]="ins" nombre="institucion"></app-muestra-confirmacion>
+<!--<app-institucion-edicion-modal [institucion]="ins"></app-institucion-edicion-modal>-->
+<app-edicion  [servicio]="_institucionesService" [objeto]="ins" tipo="institucion"></app-edicion>
+
+    </div>
+</div>

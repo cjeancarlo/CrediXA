@@ -18,12 +18,12 @@ titulo:string='Ciudades'
   }
 
   buscarCiudad(){
-    this._descriptivasService.ciudades = this._descriptivasService.buscarCiudad(this.buscar);
+    this._descriptivasService.ciudades[0] =this._descriptivasService.buscarCiudad(this.buscar);
   }
 
 onSelect(value) {
 			this._descriptivasService.pais.$key = value;
-			this._descriptivasService.ciudades =this._descriptivasService.listarCiudades();
+			this._descriptivasService.ciudades[0] = this._descriptivasService.listarCiudades();
   }
 
 

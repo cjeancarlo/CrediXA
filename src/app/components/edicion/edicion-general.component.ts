@@ -1,5 +1,5 @@
 import { Component, OnInit,Injector,Input } from '@angular/core';
-import { EmpleadosService,EmpresasService,ClientesService } from './index.services';
+import { EmpleadosService,InstitucionesService,EmpresasService,ClientesService,DescriptivasService } from './index.services';
 import { Formas } from '../../clases/formas.class';
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
@@ -20,17 +20,18 @@ export class EdicionGeneralComponent implements OnInit {
   campos:string[];
   clickeado:boolean = false;
   operacion:string = "Agregando";
-  ciudades:any=[]
   servicio:any;
   tipo:string;
 
-    constructor(public injector:Injector,private route:ActivatedRoute) {
-
-
-      }
+    constructor(public injector:Injector,private route:ActivatedRoute, private _descriptivasService:DescriptivasService) {
+      //los cargo a este nivel para evitar cargarlos cada vez que llame al detalle
+      this._descriptivasService.paises = this._descriptivasService.listarPaises();
+      this._descriptivasService.bancos = this._descriptivasService.listarBancos();
+      this._descriptivasService.empresas = this._descriptivasService.listarEmpresas();
+  }
          ngOnInit() {
                 this.sub = this.route.params.subscribe(params => {
-                this.tipo = params['tipo']; // (+) converts string 'id' to a number
+                this.tipo = params['tipo'];
                 this.servicio = this.injector.get(this.dameServicio());
           });
 
@@ -47,8 +48,8 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
                  $key: this.servicio[this.tipo].$key,
                  datos:this.servicio[this.tipo].datos
                });
-             }
-}
+              }
+           }
           this.onChanges();
 
          }
@@ -78,6 +79,14 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
 
       }
 
+dameDetalles(){
+      Object.keys(this.forma.controls).forEach(key => {
+        if( this.forma.get(key).constructor === FormArray ){
+           console.log(key);
+        }
+      });
+
+}
      resetDetalle(grupoDetalle:string){
        const control = <FormArray>this.forma.controls[grupoDetalle];
        let len = control.length;
@@ -90,13 +99,15 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
 
      private   dameServicio()
      {
-       switch(this.tipo) {
- case 'empresa':
+switch(this.tipo) {
+case 'empresa':
      return EmpresasService;
- case 'empleado':
+case 'empleado':
       return EmpleadosService
 case 'cliente':
       return ClientesService;
+case 'institucion':
+      return InstitucionesService;
  default:
       return
 }

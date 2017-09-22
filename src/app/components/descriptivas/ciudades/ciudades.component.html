@@ -9,21 +9,21 @@
   </select>
 </div>
 <section class="todoapp">
-<header  *ngIf="!(_descriptivasService.ciudades | async)" class="header">
+<header  *ngIf="!(_descriptivasService.ciudades[0] | async)" class="header">
     <h1>Seleccione un País</h1>
 </header>
-<header  *ngIf="(_descriptivasService.ciudades | async)" class="header">
+<header  *ngIf="(_descriptivasService.ciudades[0] | async)" class="header">
     <h1>{{titulo}}</h1>
     <input class="new-todo" placeholder="Buscar Ciudad" autofocus="" (keyup.enter)="buscarCiudad()" name="buscar" [(ngModel)]="buscar" >
     <button type="button" class="agregar animated" data-toggle="modal" data-target="#modalEdicion"
-    (click)="c = {}"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
+    (click)="c = {};LimpiaDatosModal()"  ><i class="fa fa-plus-circle faa-pulse animated-hover"></i></button>
 </header>
 
 
-<div  *ngIf="(_descriptivasService.ciudades | async)" >
+<div  *ngIf="(_descriptivasService.ciudades[0] | async)" >
   <section class="main" >
     <ul class="todo-list">
-      <li *ngFor="let ciudad of _descriptivasService.ciudades | async; let i = index" >
+      <li *ngFor="let ciudad of _descriptivasService.ciudades[0] | async; let i = index" >
         <div class="view row">
           <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
           <label>{{ciudad.codigo}}</label>

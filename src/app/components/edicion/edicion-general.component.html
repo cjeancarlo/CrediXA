@@ -17,9 +17,15 @@
 <form (ngSubmit)="guardar()"  [formGroup]="forma" >
 
   <div formGroupName="datos">
-    <div class="md-form form-group" *ngFor="let campo of campos">
-              <input  type="text" id="campo" class="form-control" formControlName={{campo}}>
-              <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"  for="campo" data-error="wrong" data-success="right"  >{{campo}}</label>
+    <div class="md-form form-group" *ngFor="let campo of campos"  [ngSwitch]="campo">
+
+        <select class="form-control" formControlName={{campo}} *ngSwitchCase="'empresa'">
+        <option *ngFor="let empresa of _descriptivasService.empresas | async"
+        [value]="empresa.$key" > {{empresa.nombre}}</option>
+        </select>
+
+      <input  type="text" id="campo" class="form-control" formControlName={{campo}}  *ngSwitchDefault>
+        <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"  for="campo" data-error="wrong" data-success="right"  >{{campo}}</label>
               <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
       </div>
 </div>
@@ -29,15 +35,17 @@
     <a class="nav-link active" data-toggle="tab" href="#direccionTab" role="tab">Dirección</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#profile" role="tab">Cuentas Bancarias</a>
+    <a class="nav-link" data-toggle="tab" href="#bancoTab" role="tab">Cuentas Bancarias</a>
   </li>
 </ul>
 <div class="tab-content"  >
   <div class="tab-pane active" id="direccionTab" role="tabpanel">
-<app-detalle-direccion [forma]="forma" [ciudades]="ciudades" [padre]="servicio" [tipo]="tipo"></app-detalle-direccion>
+<app-detalle [forma]="forma"  [padre]="servicio" tipoDetalle="direccion" [tipo]="tipo"></app-detalle>
+<!--<app-detalle-direccion [forma]="forma" [ciudades]="ciudades" [padre]="servicio" [tipo]="tipo"></app-detalle-direccion>-->
   </div>
-  <div class="tab-pane" id="profile" role="tabpanel">
-    <app-detalle-banco [forma]="forma"  [padre]="servicio" [tipo]="tipo"></app-detalle-banco>
+  <div class="tab-pane" id="bancoTab" role="tabpanel">
+  <app-detalle [forma]="forma" [padre]="servicio" tipoDetalle="banco" [tipo]="tipo"></app-detalle>
+<!----   <app-detalle-banco [forma]="forma"  [padre]="servicio" tipoDetalle="banco" [tipo]="tipo"></app-detalle-banco>-->
   </div>
 </div>
 </div>

@@ -59,7 +59,7 @@ buscar(texto:string, modelo, cantidad:number=10):FirebaseListObservable<any[]> {
 }
 
 listarDetalles(modelo:string,detalle:number,$key):FirebaseListObservable<any[]>{
-	//console.log(`${this.modelo}-${this.modeloDetalle[detalle]}/${this.cliente.$key}`);
+	console.log('listarDetalles',detalle,`${modelo}-${this.modeloDetalle[detalle]}/${$key}`);
 		return this.listar(`${modelo}-${this.modeloDetalle[detalle]}/${$key}`)
 						}
 

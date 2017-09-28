@@ -17,11 +17,15 @@ export class EdicionGeneralComponent implements OnInit {
   private sub: any;
   f:any;
   forma:FormGroup;
-  campos:string[];
+  campos:string[]=[];
   clickeado:boolean = false;
   operacion:string = "Agregando";
   servicio:any;
   tipo:string;
+
+dropdownList  = [];
+selectedItems = [];
+dropdownSettings = {};
 
     constructor(public injector:Injector,private route:ActivatedRoute, private _descriptivasService:DescriptivasService) {
       //los cargo a este nivel para evitar cargarlos cada vez que llame al detalle
@@ -37,8 +41,8 @@ export class EdicionGeneralComponent implements OnInit {
 
            this.f = new Formas();
            this.forma = this.f[this.tipo]();
-           this.campos =  (this.f[`${this.tipo}Campos`])
-//console.log(this.servicio[this.tipo].datos,this.servicio[this.tipo].$key,this.servicio[this.tipo].hasOwnProperty('$key'));
+           //this.campos =  (this.f[`${this.tipo}Campos`])
+           this.dameCamposForma()
 if (this.servicio[this.tipo].hasOwnProperty('$key')){
 //  console.log('pase')
          if (this.servicio[this.tipo].$key!=null)
@@ -51,6 +55,7 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
               }
            }
           this.onChanges();
+          this.initInstitucionDropDown();
 
          }
 
@@ -79,13 +84,12 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
 
       }
 
-dameDetalles(){
-      Object.keys(this.forma.controls).forEach(key => {
-        if( this.forma.get(key).constructor === FormArray ){
-           console.log(key);
-        }
+dameCamposForma():void{
+    let c:Array<string> =[];
+     const control = <FormGroup>this.forma.controls['datos'];
+     Object.keys(control.controls).forEach( (key) => {
+          this.campos.push(key)
       });
-
 }
      resetDetalle(grupoDetalle:string){
        const control = <FormArray>this.forma.controls[grupoDetalle];
@@ -117,5 +121,38 @@ case 'institucion':
      ngOnDestroy() {
    this.sub.unsubscribe();
  }
+
+initInstitucionDropDown(){
+this._descriptivasService.instituciones = this._descriptivasService.listarInstituciones();
+this._descriptivasService.instituciones.subscribe((institucion)=> {
+  institucion.forEach(item => {
+                    this.dropdownList.push({"id":item.$key,"itemName":item.nombre});
+            })
+})
+
+let  selectedItems  = this._descriptivasService.listar(`${this.tipo}/${this.servicio[this.tipo].$key}/instituciones`)
+selectedItems.subscribe((institucion)=> {
+  institucion.forEach(item => {
+                    this.selectedItems.push({"id":item.$key,"itemName":item.nombre});
+            })
+})
+
+this.dropdownSettings = {
+                                    singleSelection: false,
+                                    text:"Instituciones",
+                                    selectAllText:'Seleccione todos',
+                                    unSelectAllText:'Deselecione Todos',
+                                    enableSearchFilter: true
+                                  };
+
+}
+onItemSelect(item){
+       console.log('Selected Item:');
+       console.log(item);
+   }
+   OnItemDeSelect(item){
+       console.log('De-Selected Item:');
+       console.log(item);
+   }
 
 }

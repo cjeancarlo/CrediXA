@@ -17,16 +17,23 @@ export class DescriptivasService extends  PrincipalService  {
   modeloPais:string = '/paises';
 
   bancos: FirebaseListObservable<any[]>;
-  //banco:Banco = new Banco();
+  banco:Banco = new Banco(); //guarda el objeto que va a ser editado o agregado por el componente edicion.
   modeloBanco:string = '/bancos';
 
   ciudades= []
-//  ciudad:Ciudad = new Ciudad();
+  ciudad:Ciudad = new Ciudad(); //guarda el objeto que va a ser editado o agregado por el componente edicion.
   modeloCiudad:string = '/ciudades';
 
   empresas: FirebaseListObservable<any[]>;
   modeloEmpresa:string = '/empresas';
 
+  instituciones: FirebaseListObservable<any[]>;
+  modeloInstitucion:string = '/instituciones';
+
+
+listarInstituciones():FirebaseListObservable<any[]>{
+            return this.listar(`${this.modeloInstitucion}`)
+}
 
 
 listarEmpresas():FirebaseListObservable<any[]>{

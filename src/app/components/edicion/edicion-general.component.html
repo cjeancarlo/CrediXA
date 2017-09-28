@@ -24,8 +24,19 @@
         [value]="empresa.$key" > {{empresa.nombre}}</option>
         </select>
 
+<div class="selectClass" *ngSwitchCase="'instituciones'">
+        <angular2-multiselect
+        [data]="dropdownList" formControlName={{campo}}
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onDeSelect)="OnItemDeSelect($event)"></angular2-multiselect>
+</div>
+
       <input  type="text" id="campo" class="form-control" formControlName={{campo}}  *ngSwitchDefault>
-        <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"  for="campo" data-error="wrong" data-success="right"  >{{campo}}</label>
+
+        <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"
+          for="campo" data-error="wrong" data-success="right"  >{{campo}}
+        </label>
               <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
       </div>
 </div>
@@ -37,16 +48,19 @@
   <li class="nav-item">
     <a class="nav-link" data-toggle="tab" href="#bancoTab" role="tab">Cuentas Bancarias</a>
   </li>
+
 </ul>
 <div class="tab-content"  >
   <div class="tab-pane active" id="direccionTab" role="tabpanel">
 <app-detalle [forma]="forma"  [padre]="servicio" tipoDetalle="direccion" [tipo]="tipo"></app-detalle>
-<!--<app-detalle-direccion [forma]="forma" [ciudades]="ciudades" [padre]="servicio" [tipo]="tipo"></app-detalle-direccion>-->
+
   </div>
   <div class="tab-pane" id="bancoTab" role="tabpanel">
   <app-detalle [forma]="forma" [padre]="servicio" tipoDetalle="banco" [tipo]="tipo"></app-detalle>
-<!----   <app-detalle-banco [forma]="forma"  [padre]="servicio" tipoDetalle="banco" [tipo]="tipo"></app-detalle-banco>-->
+
   </div>
+
+
 </div>
 </div>
 <div class="row ">

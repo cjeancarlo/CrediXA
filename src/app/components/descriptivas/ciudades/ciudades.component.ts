@@ -14,6 +14,8 @@ buscar:string;
 titulo:string='Ciudades'
   constructor(private _descriptivasService:DescriptivasService) {
     super()
+    this._descriptivasService.pais.$key = null;
+    this._descriptivasService.ciudades[0]=null; 
 		this._descriptivasService.paises = this._descriptivasService.listarPaises();
   }
 

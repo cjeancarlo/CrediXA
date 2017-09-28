@@ -12,10 +12,11 @@ export class Empleado {
    email:string;
    telefono:string;
    activo:boolean;
+   institucion:Array<string>;
   }
   direccion:Direccion[];
   banco:Banco[];
-  institucion:any;
+
 
   constructor(values: Object = {}) {
 		//super()

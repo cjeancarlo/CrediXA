@@ -14,6 +14,11 @@
 
 }
 
+.selectClass{
+  padding-top: 15px;
+  margin-top: 15px;
+
+}
 .app-root-loader{
   text-align: center;
   padding: 30px;
@@ -619,3 +624,35 @@ hr {
     padding: 200px;
     height: 100px;
 }
+
+
+
+.wrapper {
+     display: table;
+   }
+   .dra-container {
+     display: table-cell;
+     background-color: rgba(255, 255, 255, 0.2);
+
+   }
+   .dra-container:nth-child(odd) {
+     background-color: rgba(0, 0, 0, 0.2);
+   }
+   .dra-container div,
+   .gu-mirror {
+     margin: 10px;
+     padding: 10px;
+     background-color: rgba(0, 0, 0, 0.2);
+     transition: opacity 0.4s ease-in-out;
+   }
+   .dra-container div {
+     cursor: move;
+     cursor: grab;
+     cursor: -moz-grab;
+     cursor: -webkit-grab;
+   }
+   .gu-mirror {
+     cursor: grabbing;
+     cursor: -moz-grabbing;
+     cursor: -webkit-grabbing;
+   }

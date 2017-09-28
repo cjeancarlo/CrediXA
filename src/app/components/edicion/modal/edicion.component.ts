@@ -15,11 +15,12 @@ export class EdicionComponent implements OnInit {
 @Input('tipo') tipo;
 @Input('objeto') objeto;
 @Input('servicio') servicio;
-@Input('botonMAs') botonMas:boolean;
+
   operacion:string = "Insertando";
   f:any;
   forma:FormGroup;
   campos:string[];
+
 
   constructor(public router: Router,private _descriptivasService:DescriptivasService) {
         this._descriptivasService.empresas = this._descriptivasService.listarEmpresas();
@@ -29,9 +30,10 @@ export class EdicionComponent implements OnInit {
     this.f = new Formas();
     this.forma = this.f[this.tipo]();
     this.campos =  (this.f[`${this.tipo}Campos`])
-    this.servicio[this.tipo].$key =  (this.objeto.$key)?this.objeto.$key :null
-       if (this.objeto.$key!=null)
-           {
+
+    this.servicio[this.tipo].$key =  this.objeto.hasOwnProperty('$key')?this.objeto.$key :null
+
+    if (this.objeto.hasOwnProperty('$key')){
            this.operacion ="Editando";
            this.forma.patchValue({
              $key: this.objeto.$key,
@@ -54,5 +56,11 @@ export class EdicionComponent implements OnInit {
      /*console.log(this._empresasService.empresa);*/
      this.router.navigate(['/edita',this.tipo]);
  }
+
+ botonMas():boolean{
+let masArray:string[]= ['banco','ciudad'];
+    return !(masArray.indexOf(this.tipo) > -1)
+ }
+
 
 }

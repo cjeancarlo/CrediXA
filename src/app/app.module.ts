@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { NgModule/*, NO_ERRORS_SCHEMA*/ } from '@angular/core';
 //import { MDBBootstrapModule } from 'angular-bootstrap-md';
-
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 import { FormsModule,ReactiveFormsModule }  from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -49,6 +49,7 @@ import { InstitucionesComponent } from './components/instituciones/instituciones
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,6 +73,7 @@ import { InstitucionesComponent } from './components/instituciones/instituciones
   ],
   imports: [
     //MDBBootstrapModule.forRoot(),
+    AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserModule,

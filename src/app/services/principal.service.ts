@@ -67,10 +67,6 @@ eliminarDetalle(modelo:string,$modeloBaseKey:string,$key:string,indice:number){
 	console.log(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }`);
 					    this.eliminar(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }` );
 					  }
-
-
-
-
 }
 /*//detalle.forEach((item, index) => {
 		console.log(item); // 9, 2, 5

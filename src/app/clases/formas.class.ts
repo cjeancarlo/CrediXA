@@ -5,7 +5,7 @@ tipo:string;
 
 
 
-botonMas:boolean =true;
+
 forma(tipo:string):FormGroup{
 return this[tipo]
 }
@@ -19,18 +19,19 @@ return this[tipo]
              'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
              'email': new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
              'telefono': new FormControl()
+
        }),
        'direccion' :new FormArray([
 
            ]),
        'banco' :new FormArray([
 
-               ])
+       ])
        });
 
   }
 
-  
+
   institucionCampos:string[] =['codigo','nombre', 'email','empresa']
   institucion():FormGroup{
     return new FormGroup({
@@ -112,17 +113,15 @@ return this[tipo]
           'cedula': new FormControl('', [Validators.required,Validators.minLength(5)]),
           'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
           'apellido': new FormControl('', [Validators.required,Validators.minLength(5)]),
-          'email': new FormControl('', [Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')])
+          'email': new FormControl('', [Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
+          'instituciones': new FormControl([''],Validators.required)
     }),
     'banco' :new FormArray([
 
         ]),
     'direccion' :new FormArray([
 
-        ]),
-    'institucion' :new FormArray([
-
-            ])
+        ])
     });
   }
 

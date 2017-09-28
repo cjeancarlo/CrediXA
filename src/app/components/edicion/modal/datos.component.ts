@@ -9,6 +9,9 @@ export class DatosComponent  {
   MuestraDatosModal(o){
    if(this.hijo){//evita error de render
    this.hijo.operacion ="Editando";
+   //evita que se traigan datos de /
+   //un registros que haya sido editando anteriormente
+   this.hijo.forma.reset();
    this.hijo.forma.patchValue({
      $key: o.$key,
      datos:o })

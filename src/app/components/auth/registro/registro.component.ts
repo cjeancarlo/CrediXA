@@ -8,7 +8,7 @@ import { FormGroup,FormControl,Validators} from '@angular/forms';
   styles: []
 })
 export class RegistroComponent implements OnInit {
-
+formData:any;
 
     forma:FormGroup= new FormGroup({
         'nombre': new FormControl('', [Validators.required]),

@@ -15,8 +15,8 @@ export class EmpresasComponent extends DatosComponent  {
 
   titulo:string='Empresas';
 	buscar:string;
-
-    constructor(private _empresasService:EmpresasService) {
+  emp:any ={};
+    constructor(public _empresasService:EmpresasService) {
       super()
       this._empresasService.items = this._empresasService.listarEmpresas();
     }

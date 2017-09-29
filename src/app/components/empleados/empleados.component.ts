@@ -13,9 +13,9 @@ export class EmpleadosComponent extends DatosComponent  {
 
 titulo:string='Empleados';
 buscar:string;
+emp:any={};
 
-
-constructor(private _empleadosService:EmpleadosService) {
+constructor(public _empleadosService:EmpleadosService) {
   super()
       this._empleadosService.items = this._empleadosService.listarEmpleados()
     }

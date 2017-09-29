@@ -17,7 +17,7 @@ buscar:string;
 ins:Institucion
 
 
-constructor(private _institucionesService:InstitucionesService) {
+constructor(public _institucionesService:InstitucionesService) {
   super()
       this.ins = new Institucion();
 

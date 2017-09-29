@@ -12,9 +12,9 @@ export class BancosComponent extends  DatosComponent  {
 
   titulo:string = 'Bancos';
   buscar:string;
+  b:any ={};
 
-
-  constructor(private _descriptivasService:DescriptivasService ) {
+  constructor(public _descriptivasService:DescriptivasService ) {
     super()
 		this._descriptivasService.bancos = this._descriptivasService.listarBancos();
   }

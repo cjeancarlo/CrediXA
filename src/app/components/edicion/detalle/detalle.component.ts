@@ -17,9 +17,10 @@ export class DetalleComponent implements OnInit {
   @Input('tipo') tipo;
   @Input('tipoDetalle') tipoDetalle;
   campos:string[];
+  rango:any[]=[]
 
-  constructor(private _descriptivasService:DescriptivasService) {
-      
+  constructor(public  _descriptivasService:DescriptivasService) {
+
   }
 
   ngOnInit() {
@@ -51,17 +52,20 @@ export class DetalleComponent implements OnInit {
                 this._descriptivasService.ciudades[i]=this._descriptivasService.listarCiudades();
 
               }
+
                     s.push(d);
-                    console.log(d);
+                    this.rango.push(0);
                     VerificaSiAgregoTipo= true;
                 }
               )
+
+
 
                   control.patchValue(s);
               //si el padre no tiene detalle agrega un formGroup
               //vacio por defecto en caso de que este agregando comportamiento por defecto
               //si por alguna razon el padre no tiene detalle
-                if (!VerificaSiAgregoTipo) this.agregarTipo();
+                if (!VerificaSiAgregoTipo) this.rango.push(0); this.agregarTipo();
           })
         }else{
               this.agregarTipo();

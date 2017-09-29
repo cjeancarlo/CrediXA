@@ -1,9 +1,10 @@
 <div [formGroup]="forma">
 <div [formArrayName]="tipoDetalle">
 <div id="content" class="content" data-spy="scroll" data-target="#navbar">
-  <div *ngFor="let address of  forma.get(tipoDetalle).controls; let i = index"
-
-  [id]="i"  class="main-container {{tipoDetalle}} alert" [ngClass]="(i==0)?'alert-info actual':'alert-success'" role="alert" >
+  <div *ngFor="let r of  rango; let i = index"
+        [id]="i"
+        class="main-container {{tipoDetalle}} alert"
+        [ngClass]="(i==0)?'alert-info actual':'alert-success'" role="alert" >
 
     <div class="panel-heading">
     <div class="row">

@@ -13,8 +13,9 @@ import {DatosComponent} from  '../../components/edicion/modal/datos.component';
 export class ClientesComponent extends DatosComponent {
   titulo:string='Clientes';
 	buscar:string;
+  cli:any={};
 
-    constructor(private _clientesService:ClientesService) {
+    constructor(public _clientesService:ClientesService) {
 super()
       this._clientesService.items = this._clientesService.listarClientes();
    }

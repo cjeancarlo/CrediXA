@@ -12,9 +12,9 @@ export class PaisesComponent extends  DatosComponent  {
 
   titulo:string = 'Paises';
   buscar:string;
+  p:any={};
 
-
-  constructor(private _descriptivasService:DescriptivasService ) {
+  constructor(public _descriptivasService:DescriptivasService ) {
     super()
 		this._descriptivasService.paises = this._descriptivasService.listarPaises();
   }

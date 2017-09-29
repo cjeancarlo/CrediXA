@@ -8,9 +8,9 @@ constructor(protected db:AngularFireDatabase) { }
 
 
 guardar (objeto:any, modelo:string, $key:string):Promise<string> {
-console.log(`${ modelo}/${$key}`)
+//console.log(`${ modelo}/${$key}`)
 		if (  $key != null  ) {
-		console.log('UPDATE ',objeto)
+		//console.log('UPDATE ',objeto)
       return new Promise((resolve) => {
             this.db.object(`${ modelo}/${$key}`).update(objeto)
                   .then(item=> {
@@ -18,13 +18,13 @@ console.log(`${ modelo}/${$key}`)
 								})
                 })
       } else {
-    	console.log('INSERT')
+  //  	console.log('INSERT')
        return new Promise((resolve) => {
        this.db.list(`${ modelo }`).push(objeto)
         .then(
         		(item)=> {
-								console.log(item);
-										console.log('tengoelKey',item.key)
+		//						console.log(item);
+										//console.log('tengoelKey',item.key)
 										resolve(item.key);}
         	 )
       })

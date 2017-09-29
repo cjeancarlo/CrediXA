@@ -60,8 +60,16 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
          }
 
          onChanges(): void {
+           /*let control:FormGroup =  <FormGroup>this.forma.controls['datos']
+             Object.keys(control.controls).forEach( (key) => {
+                  console.log(key,this.forma.get(`datos.${key}`).valid)
+              });*/
+//console.log(this.forma);
+
            this.forma.valueChanges.subscribe(val => {
             if(this.clickeado)  this.clickeado= false;
+
+
            });
          }
 
@@ -69,7 +77,7 @@ if (this.servicio[this.tipo].hasOwnProperty('$key')){
          guardar(){
              Promise.resolve(this.servicio[`guardar${this.tipo}`](this.forma.value))
                .then((res) => {
-                console.log('respuesta',res);
+                //console.log('respuesta',res);
                this.servicio[this.tipo].$key = res;
                this.operacion ="Editando";
                this.forma.patchValue(this.servicio[this.tipo]);
@@ -95,7 +103,7 @@ dameCamposForma():void{
        const control = <FormArray>this.forma.controls[grupoDetalle];
        let len = control.length;
        if (len > 1)
-         console.log('borrando')
+         //console.log('borrando')
            for (var i = len - 1; i > 0; i--)
            control.removeAt(i);
            this.forma.reset();
@@ -147,12 +155,12 @@ this.dropdownSettings = {
 
 }
 onItemSelect(item){
-       console.log('Selected Item:');
-       console.log(item);
+       //console.log('Selected Item:');
+       //console.log(item);
    }
    OnItemDeSelect(item){
-       console.log('De-Selected Item:');
-       console.log(item);
+      // console.log('De-Selected Item:');
+       //console.log(item);
    }
 
 }

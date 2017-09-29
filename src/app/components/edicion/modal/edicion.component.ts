@@ -58,7 +58,7 @@ export class EdicionComponent implements OnInit {
  }
 
  botonMas():boolean{
-let masArray:string[]= ['banco','ciudad'];
+let masArray:string[]= ['banco','ciudad','pais'];
     return !(masArray.indexOf(this.tipo) > -1)
  }
 

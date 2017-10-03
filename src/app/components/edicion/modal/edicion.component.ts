@@ -20,7 +20,7 @@ export class EdicionComponent implements OnInit {
   f:any;
   forma:FormGroup;
   campos:string[];
-
+  EditandoA:string;
 
   constructor(public router: Router,private _descriptivasService:DescriptivasService) {
         this._descriptivasService.empresas = this._descriptivasService.listarEmpresas();
@@ -32,6 +32,7 @@ export class EdicionComponent implements OnInit {
     this.campos =  (this.f[`${this.tipo}Campos`])
 
     this.servicio[this.tipo].$key =  this.objeto.hasOwnProperty('$key')?this.objeto.$key :null
+    this.EditandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
 
     if (this.objeto.hasOwnProperty('$key')){
            this.operacion ="Editando";

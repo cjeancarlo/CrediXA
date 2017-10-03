@@ -2,6 +2,9 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
+
+import { AutorizacionesComponent } from  './components/autorizaciones/autorizaciones.component';
+
 import { ClientesComponent } from './components/clientes/clientes.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 
@@ -16,7 +19,8 @@ import { EdicionGeneralComponent } from  './components/edicion/edicion-general.c
 
   const APP_ROUTES: Routes = [
 	{ path: 'home', component: HomeComponent },
-	{ path: 'clientes', component: ClientesComponent },
+{ path: 'autorizaciones', component: AutorizacionesComponent },
+  { path: 'clientes', component: ClientesComponent },
   { path: 'empleados', component: EmpleadosComponent },
   { path: 'paises', component: PaisesComponent },
   { path: 'ciudades', component: CiudadesComponent },

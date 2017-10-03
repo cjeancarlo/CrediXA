@@ -21,6 +21,7 @@ import { ClientesService } from './services/clientes.service';
 import { InstitucionesService } from './services/instituciones.service';
 import { EmpleadosService } from './services/empleados.service';
 import { DescriptivasService } from './services/descriptivas.service';
+import { AutorizacionesService } from './services/autorizaciones.service';
 import { EmpresasService } from './services/empresas.service';
 import { AuthService } from './services/auth.service';
 
@@ -43,12 +44,7 @@ import { DatosComponent } from './components/edicion/modal/datos.component';
 import { EdicionGeneralComponent } from './components/edicion/edicion-general.component';
 import { DetalleComponent } from './components/edicion/detalle/detalle.component';
 import { InstitucionesComponent } from './components/instituciones/instituciones.component';
-
-
-
-
-
-
+import { AutorizacionesComponent } from './components/autorizaciones/autorizaciones.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +65,8 @@ import { InstitucionesComponent } from './components/instituciones/instituciones
     DatosComponent,
     EdicionGeneralComponent,
     DetalleComponent,
-    InstitucionesComponent
+    InstitucionesComponent,
+    AutorizacionesComponent
   ],
   imports: [
     //MDBBootstrapModule.forRoot(),
@@ -83,7 +80,7 @@ import { InstitucionesComponent } from './components/instituciones/instituciones
 ],
   //schemas: [ NO_ERRORS_SCHEMA ],
   providers: [AngularFireAuth,
-    EmpresasService,InstitucionesService,EmpleadosService,ClientesService,DescriptivasService,PrincipalService,AuthService],
+    AutorizacionesService,EmpresasService,InstitucionesService,EmpleadosService,ClientesService,DescriptivasService,PrincipalService,AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

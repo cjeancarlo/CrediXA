@@ -1,5 +1,5 @@
 import { Component, OnInit,Injector,Input } from '@angular/core';
-import { EmpleadosService,InstitucionesService,EmpresasService,ClientesService,DescriptivasService } from './index.services';
+import { AutorizacionesService, EmpleadosService,InstitucionesService,EmpresasService,ClientesService,DescriptivasService } from './index.services';
 import { Formas } from '../../clases/formas.class';
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
@@ -120,7 +120,10 @@ case 'cliente':
       return ClientesService;
 case 'institucion':
       return InstitucionesService;
+case 'autorizacion':
+      return AutorizacionesService;
  default:
+  console.error('sin servcio definido, haz algo')
       return
 }
 
@@ -144,6 +147,8 @@ selectedItems.subscribe((institucion)=> {
                     this.selectedItems.push({"id":item.$key,"itemName":item.nombre});
             })
 })
+
+
 
 this.dropdownSettings = {
                                     singleSelection: false,

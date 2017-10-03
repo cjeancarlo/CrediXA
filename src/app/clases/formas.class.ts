@@ -104,6 +104,29 @@ return this[tipo]
     })
     });
   }
+
+  autorizacionCampos:string[] =['nroAut','fecha','nroFactura','monto', 'cuotas','pagado',
+  'institucion','empresa','empleado']
+  autorizacion():FormGroup {
+    return   new FormGroup({
+    '$key': new FormControl(),
+    'datos' : new FormGroup({
+          'nroAut': new FormControl(''),
+          'fecha': new FormControl('', [Validators.required]),
+          'nroFactura': new FormControl('', [Validators.required,Validators.minLength(1)]),
+          'monto': new FormControl('', [Validators.required,Validators.minLength(3)]),
+          'cuotas': new FormControl('', [Validators.required,Validators.minLength(3)]),
+          'pagado': new FormControl(''),
+          'institucion': new FormControl('', [Validators.required]),
+          'empresa': new FormControl('', [Validators.required]),
+          'empleado': new FormControl('', [Validators.required]),
+    }),
+    'cuotas' :new FormArray([
+
+        ])
+    });
+  }
+
   empleadoCampos:string[] =['codigo','cedula','nombre', 'apellido']
   empleado():FormGroup {
     return   new FormGroup({

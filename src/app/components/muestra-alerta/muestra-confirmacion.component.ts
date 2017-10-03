@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ClientesService } from '../../services/clientes.service';
+import { AutorizacionesService } from '../../services/autorizaciones.service';
 import { DescriptivasService } from '../../services/descriptivas.service';
 import { EmpresasService } from '../../services/empresas.service';
 
@@ -33,6 +34,7 @@ export class MuestraConfirmacionComponent  {
 @Input('objeto') objeto;
 @Input('nombre') nombre;
    constructor(private _empresasService:EmpresasService,
+               private _autorizacionesService:AutorizacionesService,
                private _clientesService:ClientesService,
                private  _descriptivasService:DescriptivasService) { }
 
@@ -42,6 +44,9 @@ export class MuestraConfirmacionComponent  {
 
 
       switch (this.nombre) {
+        case 'autorizacion':
+        //this._autorizacionesService.eliminarAutorizacion(this.objeto.$key);
+        break;
         case 'cliente':
         this._clientesService.eliminarCliente(this.objeto.$key);
         break;

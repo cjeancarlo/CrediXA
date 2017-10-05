@@ -14,29 +14,24 @@
 
         <div class="form-group row">
           <div class="col-12">
-              <div class="row">
-                <app-muestra-alerta class="col-10 text-danger text-right" [campo]="forma.get('nombre')"></app-muestra-alerta>
-              </div>
-              <input  class="form-control"  placeholder="Nombre" formControlName="nombre">
+              <md-form-field class="md-full-width">
+              <input  mdInput   placeholder="Nombre" formControlName="nombre">
+            </md-form-field >
           </div>
         </div>
-
-
         <div class="form-group row">
           <div class="col-12">
-              <div class="row">
-                <app-muestra-alerta class="col-10 text-danger text-right" [campo]="forma.get('email')"></app-muestra-alerta>
-              </div>
-              <input  class="form-control"  placeholder="Email" formControlName="email">
+              <md-form-field class="md-full-width">
+              <input  mdInput   placeholder="Email" formControlName="email">
+              </md-form-field >
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-12">
-              <div class="row">
-                <app-muestra-alerta class="col-10 text-danger text-right" [campo]="forma.get('password')"></app-muestra-alerta>
-              </div>
-              <input  class="form-control"  placeholder="Contraseña" formControlName="password"  type="password">
+              <md-form-field class="md-full-width">
+              <input mdInput  class="form-control"  placeholder="Contraseña" formControlName="password"  type="password">
+  </md-form-field >
           </div>
         </div>
 
@@ -44,8 +39,9 @@
     </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-    <button type="button" class="btn btn-primary" data-dismiss="modal"
+
+    <button md-raised-button  type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+    <button md-raised-button  type="button" class="btn btn-primary" data-dismiss="modal"
     [disabled]="(!forma.dirty|| !forma.valid)"
     (click)="_authService.registro(formData)">Confirmar</button>
   </div>

@@ -2,7 +2,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { NgModule/*, NO_ERRORS_SCHEMA*/ } from '@angular/core';
 //import { MDBBootstrapModule } from 'angular-bootstrap-md';
+
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
+ import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import 'hammerjs';
+
 import { FormsModule,ReactiveFormsModule }  from '@angular/forms';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
@@ -46,6 +52,80 @@ import { DetalleComponent } from './components/edicion/detalle/detalle.component
 import { InstitucionesComponent } from './components/instituciones/instituciones.component';
 import { AutorizacionesComponent } from './components/autorizaciones/autorizaciones.component';
 
+import {
+  MdAutocompleteModule,
+  MdButtonModule,
+  MdButtonToggleModule,
+  MdCardModule,
+  MdCheckboxModule,
+  MdChipsModule,
+  MdDatepickerModule,
+  MdDialogModule,
+  MdExpansionModule,
+  MdGridListModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdMenuModule,
+  MdNativeDateModule,
+  MdPaginatorModule,
+  MdProgressBarModule,
+  MdProgressSpinnerModule,
+  MdRadioModule,
+  MdRippleModule,
+  MdSelectModule,
+  MdSidenavModule,
+  MdSliderModule,
+  MdSlideToggleModule,
+  MdSnackBarModule,
+  MdSortModule,
+  MdTableModule,
+  MdTabsModule,
+  MdToolbarModule,
+  MdTooltipModule,
+  MdStepperModule,
+} from '@angular/material';
+import {HttpModule} from '@angular/http';
+import {CdkTableModule} from '@angular/cdk/table';
+
+@NgModule({
+  exports: [
+    CdkTableModule,
+    MdAutocompleteModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdCardModule,
+    MdCheckboxModule,
+    MdChipsModule,
+    MdStepperModule,
+    MdDatepickerModule,
+    MdDialogModule,
+    MdExpansionModule,
+    MdGridListModule,
+    MdIconModule,
+    MdInputModule,
+    MdListModule,
+    MdMenuModule,
+    MdNativeDateModule,
+    MdPaginatorModule,
+    MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdRadioModule,
+    MdRippleModule,
+    MdSelectModule,
+    MdSidenavModule,
+    MdSliderModule,
+    MdSlideToggleModule,
+    MdSnackBarModule,
+    MdSortModule,
+    MdTableModule,
+    MdTabsModule,
+    MdToolbarModule,
+    MdTooltipModule,
+  ]
+})
+export class MaterialModule {}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -69,10 +149,14 @@ import { AutorizacionesComponent } from './components/autorizaciones/autorizacio
     AutorizacionesComponent
   ],
   imports: [
-    //MDBBootstrapModule.forRoot(),
+  HttpModule,
+BrowserAnimationsModule,
+MaterialModule,
+NguiAutoCompleteModule,
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
+
     BrowserModule,
     APP_ROUTING,
     AngularFireModule.initializeApp(firebase),

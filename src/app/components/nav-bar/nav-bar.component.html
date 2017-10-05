@@ -1,41 +1,31 @@
-<nav class="navbar navbar-toggleable-md navbar-dark indigo">
-<!--<nav class="navbar navbar-toggleable-md navbar-inverse bg-primary  bg-faded">-->
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" [routerLink]="['/home']">Navbar</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-      <li class="nav-item active">
-        <a class="nav-link" [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
-      </li>
-       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Archivo
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" [routerLink]="['/autorizaciones']">Autorizaciones</a>
-          <a class="dropdown-item" [routerLink]="['/clientes']">Clientes</a>
-          <a class="dropdown-item" [routerLink]="['/empleados']">Empleados</a>
-          <a class="dropdown-item" [routerLink]="['/institucions']">Instituciones</a>
-          <a class="dropdown-item" [routerLink]="['/empresas']">Empresas</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownAjustes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ajustes</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownAjustes">
-          <a class="dropdown-item" [routerLink]="['/paises']">Paises</a>
-          <a class="dropdown-item" [routerLink]="['/ciudades']">Ciudades</a>
-          <a class="dropdown-item" [routerLink]="['/bancos']">Bancos</a>
-      </div>
-      </li>
-    </ul>
-    <button type="button"  class="btn btn-success"
-    data-toggle="modal" data-target="#loginModal" >Iniciar sesión</button>
-    <button type="button"  class="btn btn-warning"
-    data-toggle="modal" data-target="#registroModal" >Registro</button>
-  </div>
-</nav>
-
 <app-registro></app-registro>
 <app-login></app-login>
+
+<md-toolbar color="primary">
+  <span>CrediXA</span>
+<button md-button [routerLink]="['/home']"  ><span>Inicio</span></button>
+
+    <button md-button [mdMenuTriggerFor]="archivo">Archivo</button>
+    <md-menu #archivo="mdMenu">
+      <button md-menu-item [routerLink]="['/autorizaciones']">Autorizaciones</button>
+      <button md-menu-item  [routerLink]="['/clientes']">Clientes</button>
+      <button md-menu-item  [routerLink]="['/empleados']">Empleados</button>
+      <button md-menu-item  [routerLink]="['/institucions']">Instituciones</button>
+      <button md-menu-item  [routerLink]="['/empresas']">Empresas</button>
+    </md-menu>
+
+    <button md-button [mdMenuTriggerFor]="ajustes">Ajustes</button>
+    <md-menu #ajustes="mdMenu">
+      <button md-menu-item [routerLink]="['/paises']">Paises</button>
+      <button md-menu-item [routerLink]="['/ciudades']">Ciudades</button>
+      <button md-menu-item [routerLink]="['/bancos']">Bancos</button>
+    </md-menu>
+
+    <div class="button-row">
+
+    <button data-toggle="modal" data-target="#loginModal" md-raised-button color="primary">Iniciar Sesión</button>
+    <button data-toggle="modal" data-target="#registroModal" md-raised-button color="primary">Registro</button>
+
+</div>
+
+</md-toolbar>

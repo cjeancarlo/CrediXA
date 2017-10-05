@@ -31,6 +31,13 @@ export class DescriptivasService extends  PrincipalService  {
   modeloInstitucion:string = '/instituciones';
 
 
+  empleados: FirebaseListObservable<any[]>;
+  modeloEmpleado:string = '/empleados';
+
+  listarEmpleados():FirebaseListObservable<any[]>{
+              return this.listar(`${this.modeloEmpleado}`)
+  }
+
 listarInstituciones():FirebaseListObservable<any[]>{
             return this.listar(`${this.modeloInstitucion}`)
 }

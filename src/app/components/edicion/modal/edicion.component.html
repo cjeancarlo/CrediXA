@@ -19,24 +19,43 @@
               [value]="empresa.$key" > {{empresa.nombre}}</option>
               </select>
 
+              <div class="selectClass" *ngSwitchCase="'institucion'">
+                      <angular2-multiselect
+                      [(ngModel)]="ins"
+                      [data]="dropdownListInstituciones"
+                      formControlName={{campo}}
+                      [settings]="dropdownSettingsInstituciones"
+                      >
+                    </angular2-multiselect>
+              </div>
 
-              <input  type="text" id="campo" class="form-control" formControlName={{campo}} *ngSwitchDefault >
-                    <label [ngClass]="{'active':(forma.get('datos.'+campo).value?.length >0)}"  for="campo" data-error="wrong" data-success="right"  >{{campo}}</label>
+              <div class="selectClass" *ngSwitchCase="'empleado'">
+                      <angular2-multiselect
+                      [(ngModel)]="emp"
+                      [data]="dropdownListEmpleados"
+                      formControlName={{campo}}
+                      [settings]="dropdownSettingsEmpleados"
+                      >
+                    </angular2-multiselect>
+              </div>
+                    <md-form-field class="md-full-width">
+                    <input mdInput type="text" id="campo" class="form-control" formControlName={{campo}} [placeholder]="campo" *ngSwitchDefault >
                     <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
+                  </md-form-field>
             </div>
         </div>
       </div> <!--end modal-->
       <div class="modal-footer">
 
       <div class="col-md-6 text-left">
-      <button *ngIf="botonMas()" type="button"  class="btn btn-success"
+      <button md-raised-button  *ngIf="botonMas()" type="button"  class="btn btn-success"
        data-dismiss="modal"
        (click)="AgregarEditar( )" >Mas</button>
       </div>
       <div class="col-md-6 text-right">
-       <button type="button"  class="btn btn-secondary"
+      <button md-raised-button  type="button"  class="btn btn-secondary"
        data-dismiss="modal">Cerrar</button>
-     <button type="button"  class="btn btn-primary"
+     <button md-raised-button  type="button"  class="btn btn-primary"
       (click)="guardar()"
       [disabled]="(!forma.dirty|| !forma.valid)"
       data-dismiss="modal">Guardar</button>

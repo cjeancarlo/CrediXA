@@ -106,7 +106,7 @@ return this[tipo]
   }
 
   autorizacionCampos:string[] =['nroAut','fecha','nroFactura','monto', 'cuotas','pagado',
-  'institucion','empresa','empleado']
+  'empleado','institucion']
   autorizacion():FormGroup {
     return   new FormGroup({
     '$key': new FormControl(),

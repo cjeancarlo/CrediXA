@@ -118,7 +118,7 @@ return this[tipo]
           'cuotas': new FormControl('', [Validators.required,Validators.minLength(3)]),
           'pagado': new FormControl(''),
           'institucion': new FormControl('', [Validators.required]),
-          'empresa': new FormControl('', [Validators.required]),
+          'empresa': new FormControl(''),
           'empleado': new FormControl('', [Validators.required]),
     }),
     'cuotas' :new FormArray([

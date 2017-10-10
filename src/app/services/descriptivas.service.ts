@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable,FirebaseObjectObservable} from 'angularfire2/database';
 import { PrincipalService } from './principal.service';
 
 import { Pais } from '../clases/pais.class';
 import { Ciudad } from '../clases/ciudad.class';
 import { Banco } from '../clases/banco.class';
-
 
 @Injectable()
 export class DescriptivasService extends  PrincipalService  {
@@ -33,6 +32,11 @@ export class DescriptivasService extends  PrincipalService  {
 
   empleados: FirebaseListObservable<any[]>;
   modeloEmpleado:string = '/empleados';
+
+
+  dameEmpleado($key):FirebaseObjectObservable<any[]>{
+              return this.listarObjeto(`${this.modeloEmpleado}/${$key}`)
+  }
 
   listarEmpleados():FirebaseListObservable<any[]>{
               return this.listar(`${this.modeloEmpleado}`)

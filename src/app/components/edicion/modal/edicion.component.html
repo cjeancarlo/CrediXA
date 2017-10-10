@@ -14,34 +14,51 @@
 
             <div class="md-form form-group" *ngFor="let campo of campos" [ngSwitch]="campo">
 
-              <select class="form-control" formControlName={{campo}} *ngSwitchCase="'empresa'">
-              <option *ngFor="let empresa of _descriptivasService.empresas | async"
-              [value]="empresa.$key" > {{empresa.nombre}}</option>
-              </select>
-
-              <div class="selectClass" *ngSwitchCase="'institucion'">
-                      <angular2-multiselect
-                      [(ngModel)]="ins"
-                      [data]="dropdownListInstituciones"
-                      formControlName={{campo}}
-                      [settings]="dropdownSettingsInstituciones"
-                      >
-                    </angular2-multiselect>
+              <div   *ngSwitchCase="'empresa'"  >
+              <md-select class="md-full-width"  [placeholder]="campo" [formControlName]="campo"
+              >
+              <md-option *ngFor="let empresa of _descriptivasService.empresas | async"
+              [value]="empresa.$key" > {{empresa.nombre}}
+              </md-option>
+              </md-select>
               </div>
 
-              <div class="selectClass" *ngSwitchCase="'empleado'">
-                      <angular2-multiselect
-                      [(ngModel)]="emp"
-                      [data]="dropdownListEmpleados"
-                      formControlName={{campo}}
-                      [settings]="dropdownSettingsEmpleados"
-                      >
-                    </angular2-multiselect>
+              <div   *ngSwitchCase="'empleado'"  >
+
+                <md-form-field  class="md-full-width" >
+                   <input type="text" mdInput [formControlName]="campo"  [mdAutocomplete]="autoempleado"  >
+                </md-form-field>
+
+                <md-autocomplete  class="md-full-width"  #autoempleado="mdAutocomplete"  [displayWith]="displayFn.bind(this)">
+                  <md-option
+                  *ngFor="let empleado of  _descriptivasService.empleados | async"
+                  [value]="empleado" > <span>{{empleado.cedula}}</span> {{empleado.nombre}} {{empleado.apellido }}
+                 </md-option>
+                </md-autocomplete>
+
+
+
+
               </div>
-                    <md-form-field class="md-full-width">
-                    <input mdInput type="text" id="campo" class="form-control" formControlName={{campo}} [placeholder]="campo" *ngSwitchDefault >
+
+              <div   *ngSwitchCase="'institucion'"  >
+                <md-select class="md-full-width"  [placeholder]="campo" [formControlName]="campo"
+                >
+                 <md-option
+                 *ngFor="let institucion of  _descriptivasService.instituciones | async"
+                 [value]="institucion.$key" > {{institucion.nombre}}
+                </md-option>
+                </md-select>
+              </div>
+
+                    <md-form-field class="md-full-width" *ngSwitchDefault>
+                    <input mdInput type="text" id="campo" class="form-control" formControlName={{campo}} [placeholder]="campo"  >
                     <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
                   </md-form-field>
+
+
+
+
             </div>
         </div>
       </div> <!--end modal-->
@@ -65,3 +82,8 @@
       </div>
     </div>
   </div>
+
+
+<pre>
+  {{(_descriptivasService.empleados | async) | json}}
+</pre>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable , FirebaseObjectObservable} from 'angularfire2/database';
 
 @Injectable()
 export class PrincipalService {
@@ -33,6 +33,9 @@ guardar (objeto:any, modelo:string, $key:string):Promise<string> {
 	}
 
 
+listarObjeto(modelo:string,cantidad:number= 10):FirebaseObjectObservable<any[]>{
+		return this.db.object(`${modelo}`)
+}
 
 listar(modelo:string,cantidad:number= 10):FirebaseListObservable<any[]>{
         return  this.db.list(`${modelo}`,{

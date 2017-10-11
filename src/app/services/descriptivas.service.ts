@@ -10,6 +10,16 @@ import { Banco } from '../clases/banco.class';
 export class DescriptivasService extends  PrincipalService  {
 
 //T[] ==Array<T>
+autoCompleteConfig={
+  "empleado":{"$key":null,
+              "concatBusqueda":['cedula','nombre','apellido'],
+              "plural":"Empleados"
+            },
+  "institucion":{"$key":null,
+                        "concatBusqueda":['codigo','nombre'],
+                        "plural":"Instituciones"
+                      }
+}
 
   paises: FirebaseListObservable<any[]>;
   pais:Pais = new Pais();
@@ -29,13 +39,16 @@ export class DescriptivasService extends  PrincipalService  {
   instituciones: FirebaseListObservable<any[]>;
   modeloInstitucion:string = '/instituciones';
 
-
   empleados: FirebaseListObservable<any[]>;
   modeloEmpleado:string = '/empleados';
 
 
   dameEmpleado($key):FirebaseObjectObservable<any[]>{
               return this.listarObjeto(`${this.modeloEmpleado}/${$key}`)
+  }
+
+  dameInstitucion($key):FirebaseObjectObservable<any[]>{
+              return this.listarObjeto(`${this.modeloInstitucion}/${$key}`)
   }
 
   listarEmpleados():FirebaseListObservable<any[]>{

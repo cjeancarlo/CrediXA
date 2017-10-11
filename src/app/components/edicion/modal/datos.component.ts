@@ -27,7 +27,11 @@ constructor(){
    //traduce el $key guardado en la base de datos por el string o descripcion legible
    //solucion encontrada para desplegar la descripcion en los md-autocomplete
    this.hijo._descriptivasService.dameEmpleado(o.empleado).take(1).subscribe(data=> {
-     this.hijo.forma.get('datos.empleado').setValue(`${data.nombre} ${data.apellido}`) }
+     this.hijo.forma.get('datos.empleado').setValue(`${data.cedula} ${data.nombre} ${data.apellido}`) }
+   )
+
+   this.hijo._descriptivasService.dameInstitucion(o.institucion).take(1).subscribe(data=> {
+     this.hijo.forma.get('datos.institucion').setValue(`${data.codigo} ${data.nombre}`) }
    )
    //console.log('empleado',o)
 

@@ -28,10 +28,8 @@ export class EdicionComponent implements OnInit {
   f:any;
   forma:FormGroup;
   campos:string[];
-  EditandoA:string;
-  $keytipo={
-    "empleado":null
-  }
+  editandoA:string;
+  evaluandoA:string;
 
   constructor(public router: Router
   ,public _descriptivasService:DescriptivasService) {
@@ -46,67 +44,21 @@ export class EdicionComponent implements OnInit {
     this.forma = this.f[this.tipo]();
     this.campos =  (this.f[`${this.tipo}Campos`])
 
-    let dropdowns:string[]=['institucion','empleado' ]
-        this.campos.forEach(item => {
-//          console.log(item,dropdowns.indexOf(item));
-          if (dropdowns.indexOf(item) >= 0) {
-
-
-          //this.initDropDown(item)
-          }
-        }
-
-
-        );
-
-
     this.servicio[this.tipo].$key =  this.objeto.hasOwnProperty('$key')?this.objeto.$key :null
-    this.EditandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
+    this.editandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
 
-  /*  if (this.objeto.hasOwnProperty('$key')){
-           this.operacion ="Editsssando";
-           this.forma.patchValue({
-             $key: this.objeto.$key,
-             datos:this.objeto })
-           }else
-              this.forma.reset();*/
-
-               this.forma.get('datos.empleado').valueChanges.subscribe(val => {
+    console.log(this.objeto);
+              /* this.forma.get('datos.empleado').valueChanges.subscribe(val => {
                   let valor = (val != null &&   typeof val==='object') ? val.nombre : val;
-                  console.log('valor',valor);
-                  this._descriptivasService.empleados = this.filter(valor);
-              });
+                  this._descriptivasService.empleados = this.filter(valor,'empleado');
+              });*/
 
   }
-  filter(texto):FirebaseListObservable<any[]>{
-    console.log("FILTER",texto);
-
-      return texto == null ? //trae todos
-      this._descriptivasService.listarEmpleados() : //filtra
-      this._descriptivasService.listarEmpleados().map(items => {
-        const filtrados  = items.filter(item => {
-            console.log(item.cedula, texto);
-             if(item.nombre.toLowerCase().indexOf(texto.toLowerCase()) >=0 ||
-              item.cedula.indexOf(texto) >=0
-           ) return item;
-              });
-      return filtrados;
-    })  as FirebaseListObservable<any[]>;
-    }
-
-    displayFn(tipo):string {
-      if  (tipo != null &&   typeof tipo==='object') {
-        //guarda el $key para luego enviarlo a firebase como $key
-        this.$keytipo.empleado = tipo.$key;
-        return `${tipo.nombre} ${tipo.apellido}`
-            }
-      return  tipo;
-
-    }
 
   guardar(){
 
-        this.forma.get('datos.empleado').setValue(this.$keytipo.empleado);
+        this.forma.get('datos.empleado').setValue(this._descriptivasService.autoCompleteConfig.empleado.$key);
+        this.forma.get('datos.institucion').setValue(this._descriptivasService.autoCompleteConfig.institucion.$key);
 
        Promise.resolve(this.servicio[`guardar${this.tipo}`](this.forma.value))
          .then((res) => {
@@ -124,38 +76,6 @@ export class EdicionComponent implements OnInit {
  botonMas():boolean{
 let masArray:string[]= ['banco','ciudad','pais'];
     return !(masArray.indexOf(this.tipo) > -1)
- }
-
-
-
-
-
- initDropDown(tipo:string){
-
-   function PrimeraLetra(string){
-     return string.charAt(0).toUpperCase() + string.slice(1);
-   }
-
-   let plural:{} ={}/*= [{'empleado':'empleados'},{'institucion':'instituciones'},{'empresa':'empresas'}]*/
-   plural['empleado'] = 'empleados'
-   plural['institucion'] = 'instituciones';
-   plural['empresa'] = 'empresas';
-
-   let nombreCapitalizado:string=PrimeraLetra(plural[tipo])
-   this._descriptivasService[plural[tipo]] = this._descriptivasService[`listar${nombreCapitalizado}`]();
-   this._descriptivasService[plural[tipo]].subscribe((t)=> {
-   t.forEach(item => {
-                     this[`dropdownList${nombreCapitalizado}`].push({"id":item.$key,"itemName":item.nombre});
-             })
- })
-
-
- this[`dropdownSettings${nombreCapitalizado}`] = {
-     singleSelection: true,
-     text:nombreCapitalizado,
-     enableSearchFilter: true
- };
-
  }
 
 }

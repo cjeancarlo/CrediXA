@@ -87,6 +87,7 @@ import {
 } from '@angular/material';
 import {HttpModule} from '@angular/http';
 import {CdkTableModule} from '@angular/cdk/table';
+import { AutoCompleteComponent } from './components/edicion/auto-complete/auto-complete.component';
 
 @NgModule({
   exports: [
@@ -146,7 +147,8 @@ export class MaterialModule {}
     EdicionGeneralComponent,
     DetalleComponent,
     InstitucionesComponent,
-    AutorizacionesComponent
+    AutorizacionesComponent,
+    AutoCompleteComponent
   ],
   imports: [
   HttpModule,

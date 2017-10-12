@@ -17,9 +17,7 @@ export class AutoCompleteComponent implements OnInit {
   constructor(public _descriptivasService:DescriptivasService ) { }
 
   ngOnInit() {
-
-console.log(this.campo);
-
+//console.log(this.campo);
     this.servicio = this._descriptivasService.autoCompleteConfig[this.campo]
     //console.log(this.campo,this.servicio);
     this.forma.get(`datos.${this.campo}`).valueChanges.subscribe(val => {
@@ -52,7 +50,6 @@ console.log(this.campo);
     displayFn(item):string {
       if  (item != null &&   typeof item==='object') {
         this.servicio.$key = item.$key;
-        //console.log(this.servicio);
           return this.displayOption(item)
           }
       return  item;

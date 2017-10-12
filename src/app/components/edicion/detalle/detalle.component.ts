@@ -12,10 +12,10 @@ import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 export class DetalleComponent implements OnInit {
   objectKeys = Object.keys;
   f:any = new Formas();
-  @Input('forma') forma:FormGroup;
-  @Input('padre') padre;
-  @Input('tipo') tipo;
-  @Input('tipoDetalle') tipoDetalle;
+    @Input('forma') forma:FormGroup;
+    @Input('padre') padre;
+    @Input('tipo') tipo;
+    @Input('tipoDetalle') tipoDetalle;
   campos:string[];
   rango:any[]=[]
 

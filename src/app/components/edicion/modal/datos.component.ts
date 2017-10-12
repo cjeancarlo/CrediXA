@@ -7,10 +7,7 @@ import { EdicionComponent } from './edicion.component';
 })
 export class DatosComponent  {
 
-constructor(){
-
-
-}
+constructor(){}
 
 @ViewChild(EdicionComponent) hijo: EdicionComponent;
   MuestraDatosModal(o){
@@ -26,16 +23,33 @@ constructor(){
 
    //traduce el $key guardado en la base de datos por el string o descripcion legible
    //solucion encontrada para desplegar la descripcion en los md-autocomplete
-   this.hijo._descriptivasService.dameEmpleado(o.empleado).take(1).subscribe(data=> {
-     this.hijo.forma.get('datos.empleado').setValue(`${data.cedula} ${data.nombre} ${data.apellido}`) }
-   )
+   //funciones involucradas
+   //suscribeteACambios(key,o)
+   //cPL(string)
+   //displayOption(data,item)
+for (var key in this.hijo._descriptivasService.autoCompleteConfig) {
+       this.suscribeteACambios(key,o)
+     }
+}
+private suscribeteACambios(item,o){
+         this.hijo._descriptivasService[`dame${this.cPL(item)}`](o[item]).take(1).subscribe(
+           data=> {this.hijo.forma.get(`datos.${item}`).setValue(this.displayOption(data,item))
+        })
+}
 
-   this.hijo._descriptivasService.dameInstitucion(o.institucion).take(1).subscribe(data=> {
-     this.hijo.forma.get('datos.institucion').setValue(`${data.codigo} ${data.nombre}`) }
-   )
-   //console.log('empleado',o)
-
+private cPL(string) {//capitalizar primera letra =cPL
+     return string.charAt(0).toUpperCase() + string.slice(1);
  }
+
+private  displayOption(data,item){
+ let display:string="";
+ this.hijo._descriptivasService.autoCompleteConfig[item].concatBusqueda.forEach(b => {
+ display +=`${data[b]} `;
+ })
+//console.log('display',display);
+   return display;
+}
+
 
  LimpiaDatosModal(){
   if(this.hijo){//evita error de render

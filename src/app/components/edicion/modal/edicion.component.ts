@@ -24,12 +24,12 @@ export class EdicionComponent implements OnInit {
 
 
 
-  operacion:string = "Insertando";
-  f:any;
-  forma:FormGroup;
-  campos:string[];
-  editandoA:string;
-  evaluandoA:string;
+operacion:string = "Insertando";
+f:any;
+forma:FormGroup;
+campos:string[];
+editandoA:string;
+evaluandoA:string;
 
   constructor(public router: Router
   ,public _descriptivasService:DescriptivasService) {
@@ -47,8 +47,7 @@ export class EdicionComponent implements OnInit {
     this.servicio[this.tipo].$key =  this.objeto.hasOwnProperty('$key')?this.objeto.$key :null
     this.editandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
 
-    console.log(this.objeto);
-              /* this.forma.get('datos.empleado').valueChanges.subscribe(val => {
+                  /* this.forma.get('datos.empleado').valueChanges.subscribe(val => {
                   let valor = (val != null &&   typeof val==='object') ? val.nombre : val;
                   this._descriptivasService.empleados = this.filter(valor,'empleado');
               });*/

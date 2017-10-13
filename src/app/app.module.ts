@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule/*, NO_ERRORS_SCHEMA*/ } from '@angular/core';
 //import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
  import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 
@@ -158,7 +160,7 @@ NguiAutoCompleteModule,
     AngularMultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
-
+MultiselectDropdownModule,
     BrowserModule,
     APP_ROUTING,
     AngularFireModule.initializeApp(firebase),

@@ -1,3 +1,18 @@
-<p>
-  home works!
-</p>
+<form [formGroup]="myForm">
+    <ss-multiselect-dropdown
+    (onLazyLoad)="loadData($event)"
+    [options]="myOptions"
+    formControlName="optionsModel"
+    [settings]="mySettings" ></ss-multiselect-dropdown>
+    <pre>
+          valido {{myForm.valid }}
+          dirty {{myForm.dirty }}
+          clickeado {{clickeado}}
+          {{!myForm.valid && myForm.dirty}}
+
+    </pre>
+
+    <button md-raised-button
+    [disabled]="clickeado || (!myForm.dirty|| !myForm.valid)"
+    type="submit" class="btn btn-outline-primary">Guardar</button>
+</form>

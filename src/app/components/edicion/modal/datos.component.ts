@@ -27,8 +27,11 @@ constructor(){}
    //suscribeteACambios(key,o)
    //cPL(string)
    //displayOption(data,item)
+
+
 for (var key in this.hijo._descriptivasService.autoCompleteConfig) {
-       this.suscribeteACambios(key,o)
+    if(o[key])
+      this.suscribeteACambios(key,o)
      }
 }
 private suscribeteACambios(item,o){

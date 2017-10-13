@@ -16,8 +16,8 @@ autoCompleteConfig={
               "plural":"Empleados"
             },
   "institucion":{"$key":null,
-                        "concatBusqueda":['codigo','nombre'],
-                        "plural":"Instituciones"
+              "concatBusqueda":['codigo','nombre'],
+              "plural":"Instituciones"
                       }
 }
 
@@ -51,9 +51,15 @@ autoCompleteConfig={
               return this.listarObjeto(`${this.modeloInstitucion}/${$key}`)
   }
 
+
   listarEmpleados():FirebaseListObservable<any[]>{
               return this.listar(`${this.modeloEmpleado}`)
   }
+
+  listarEmpleadoInstituciones($key):FirebaseListObservable<any[]>{
+              return this.listar(`${this.modeloEmpleado}/${$key}/${this.modeloInstitucion}`)
+  }
+
 
 listarInstituciones():FirebaseListObservable<any[]>{
             return this.listar(`${this.modeloInstitucion}`)

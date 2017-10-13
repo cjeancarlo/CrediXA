@@ -6,7 +6,7 @@ export class Empleado {
   $key:string;
   datos:{
    codigo:string;
-   cedula:number;
+   cedula:string;
    nombre:string;
    apellido:string;
    email:string;

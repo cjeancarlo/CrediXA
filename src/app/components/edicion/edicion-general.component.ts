@@ -5,14 +5,14 @@ import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
 import {ActivatedRoute ,Router} from '@angular/router';
 import 'rxjs/add/operator/take';
-
+import { IMultiSelectOption,IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'app-edicion-general',
   templateUrl: './edicion-general.component.html',
   styles: []
 })
-export class EdicionGeneralComponent implements OnInit {
+export class EdicionGeneralComponent implements OnInit{
 
   private sub: any;
   f:any;
@@ -23,53 +23,76 @@ export class EdicionGeneralComponent implements OnInit {
   servicio:any;
   tipo:string;
 
-dropdownList  = [];
-selectedItems = [];
-dropdownSettings = {};
+  myOptions: IMultiSelectOption[] = [];
 
-    constructor(public injector:Injector,private route:ActivatedRoute, private _descriptivasService:DescriptivasService) {
-      //los cargo a este nivel para evitar cargarlos cada vez que llame al detalle
+
+ mySettings: IMultiSelectSettings = {
+ pullRight: true,
+ enableSearch: true,
+ checkedStyle: 'fontawesome',
+ buttonClasses: 'btn btn-default btn-secondary',
+ selectionLimit: 0,
+ closeOnSelect: false,
+ autoUnselect: false,
+ showCheckAll: true,
+ showUncheckAll: true,
+ fixedTitle: true,
+ maxHeight: '300px',
+ isLazyLoad: true,
+ loadViewDistance: 1,
+ stopScrollPropagation: true
+ };
+
+
+
+    constructor(public injector:Injector,private route:ActivatedRoute, private _descriptivasService:DescriptivasService) {      //los cargo a este nivel para evitar cargarlos cada vez que llame al detalle
       this._descriptivasService.paises = this._descriptivasService.listarPaises();
       this._descriptivasService.bancos = this._descriptivasService.listarBancos();
       this._descriptivasService.empresas = this._descriptivasService.listarEmpresas();
-  }
-         ngOnInit() {
+      }
+
+
+
+      ngOnInit() {
+
                 this.sub = this.route.params.subscribe(params => {
                 this.tipo = params['tipo'];
                 this.servicio = this.injector.get(this.dameServicio());
-          });
+                });
 
            this.f = new Formas();
            this.forma = this.f[this.tipo]();
-           //this.campos =  (this.f[`${this.tipo}Campos`])
            this.dameCamposForma()
-if (this.servicio[this.tipo].hasOwnProperty('$key')){
-//  console.log('pase')
-         if (this.servicio[this.tipo].$key!=null)
-               {
-               this.operacion ="Editando";
-               this.forma.patchValue({
-                 $key: this.servicio[this.tipo].$key,
-                 datos:this.servicio[this.tipo].datos
-               });
-              }
-           }
-          this.onChanges();
-          this.initInstitucionDropDown();
+
+           this.filter().then((results:IMultiSelectOption[]) => {
+              this.myOptions= results
+              console.log('cargando resultados')
+            })
+
+           console.log('llenando forma',this.servicio[this.tipo].datos)
+             if (this.servicio[this.tipo].hasOwnProperty('$key')){
+                  if (this.servicio[this.tipo].$key!=null)
+                        {
+                        this.operacion ="Editando";
+                        this.forma.patchValue({
+                          $key: this.servicio[this.tipo].$key,
+                          datos:this.servicio[this.tipo].datos
+                        });
+                       }
+                     }
+
+
+
+
+                this.onChanges();
+
+
 
          }
 
          onChanges(): void {
-           /*let control:FormGroup =  <FormGroup>this.forma.controls['datos']
-             Object.keys(control.controls).forEach( (key) => {
-                  console.log(key,this.forma.get(`datos.${key}`).valid)
-              });*/
-//console.log(this.forma);
-
            this.forma.valueChanges.subscribe(val => {
             if(this.clickeado)  this.clickeado= false;
-
-
            });
          }
 
@@ -133,39 +156,42 @@ case 'autorizacion':
    this.sub.unsubscribe();
  }
 
-initInstitucionDropDown(){
-this._descriptivasService.instituciones = this._descriptivasService.listarInstituciones();
-this._descriptivasService.instituciones.subscribe((institucion)=> {
-  institucion.forEach(item => {
-                    this.dropdownList.push({"id":item.$key,"itemName":item.nombre});
-            })
-})
+filter(texto:string=null){
+let myOptions=[];
+return  new Promise(resolve=>{
+    let  selectedItems   = this._descriptivasService[`listarInstituciones`]()
+    selectedItems.take(1).subscribe(items=> {
+        items.filter(item => {
+          let buscarPor:string='';
+          this._descriptivasService.autoCompleteConfig.institucion.concatBusqueda.forEach(b => {
+              buscarPor +=`${item[b]} `;
+              })
 
-let  selectedItems  = this._descriptivasService.listar(`${this.tipo}/${this.servicio[this.tipo].$key}/instituciones`)
-selectedItems.subscribe((institucion)=> {
-  institucion.forEach(item => {
-                    this.selectedItems.push({"id":item.$key,"itemName":item.nombre});
-            })
-})
+              if (texto==null){
+                  myOptions.push({id:item.$key,name: item.nombre});
+              }else{
+                    if( buscarPor.toLowerCase().indexOf(texto.toLowerCase()) >=0){
+                        myOptions.push({id:item.$key,name: item.nombre});
+                        }
+               }
+               });
+               resolve(myOptions)
 
+          })
 
+        })
 
-this.dropdownSettings = {
-                                    singleSelection: false,
-                                    text:"Instituciones",
-                                    selectAllText:'Seleccione todos',
-                                    unSelectAllText:'Deselecione Todos',
-                                    enableSearchFilter: true
-                                  };
+        //return  p
+  }
 
+loadData = (event)=> {
+       let filter = event.filter;
+       let length = event.length;
+        this.filter(filter).then((results:IMultiSelectOption[]) => {
+          console.log(results/*, JSON.parse(results)*/);
+          this.myOptions= results
+        });
 }
-onItemSelect(item){
-       //console.log('Selected Item:');
-       //console.log(item);
-   }
-   OnItemDeSelect(item){
-      // console.log('De-Selected Item:');
-       //console.log(item);
-   }
+
 
 }

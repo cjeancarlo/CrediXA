@@ -4,7 +4,7 @@
    <input   type="text" mdInput [formControlName]="campo"  [mdAutocomplete]="auto"  >
 </md-form-field>
 
-<md-autocomplete  class="md-full-width"  #auto="mdAutocomplete"  [displayWith]="displayFn.bind(this)">
+<md-autocomplete multiple   class="md-full-width"  #auto="mdAutocomplete"  [displayWith]="displayFn.bind(this)">
   <md-option
   *ngFor="let item of  _descriptivasService[servicio.plural] | async"
   [value]="item" > {{displayOption(item)}}

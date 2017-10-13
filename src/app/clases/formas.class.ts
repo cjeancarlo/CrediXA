@@ -132,8 +132,8 @@ return this[tipo]
     return   new FormGroup({
     '$key': new FormControl(),
     'datos' : new FormGroup({
-          'codigo': new FormControl('', [Validators.required,Validators.minLength(3)]),
-          'cedula': new FormControl('', [Validators.required,Validators.minLength(5)]),
+          'codigo': new FormControl('', [Validators.required]),
+          'cedula': new FormControl('', [Validators.required]),
           'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
           'apellido': new FormControl('', [Validators.required,Validators.minLength(5)]),
           'email': new FormControl('', [Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),

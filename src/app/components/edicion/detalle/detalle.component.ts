@@ -1,6 +1,6 @@
 import { Component, Input,OnInit } from '@angular/core';
 import { Formas } from '../../../clases/formas.class';
-import { DescriptivasService } from '../../../services/descriptivas.service';
+import { FormasDinamicasService } from '../index.services'
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 
 
@@ -19,7 +19,7 @@ export class DetalleComponent implements OnInit {
   campos:string[];
   rango:any[]=[]
 
-  constructor(public  _descriptivasService:DescriptivasService) {}
+  constructor(public  _formasDinamicasService:FormasDinamicasService) {}
 
   ngOnInit() {
     let VerificaSiAgregoTipo:boolean = false;
@@ -27,7 +27,7 @@ export class DetalleComponent implements OnInit {
     //busca que campos tiene la forma a mostrar
     this.campos= this.f[`${this.tipoDetalle}DetalleCampos`]
 
-    //console.log('ngOnInit', typeof this.padre[this.tipo].$key,(typeof this.padre[this.tipo].$key !== "undefined"))
+    //console.log('ngOnInit',this.campos)
         if (/*this.padre[this.tipo].$key!==null || */
             typeof this.padre[this.tipo].$key !== "undefined"){
         //  console.log('buscando datos para mostrar');
@@ -48,8 +48,8 @@ export class DetalleComponent implements OnInit {
                 if(d.pais){
                           //si el detalle tiene el campo
                           //o objeto pais carga la data de los DropDowns
-                this._descriptivasService.pais.$key = d.pais;
-                this._descriptivasService.ciudades[i]=this._descriptivasService.listarCiudades();
+                this._formasDinamicasService.pais.$key = d.pais;
+                this._formasDinamicasService.ciudades[i]=this._formasDinamicasService.listarCiudades();
               }
 
                     s.push(d);
@@ -71,8 +71,8 @@ export class DetalleComponent implements OnInit {
 
 
       onSelect(value,i) {
-          this._descriptivasService.pais.$key = value;
-          this._descriptivasService.ciudades[i] =this._descriptivasService.listarCiudades();
+          this._formasDinamicasService.pais.$key = value;
+          this._formasDinamicasService.ciudades[i] =this._formasDinamicasService.listarCiudades();
 
 
 
@@ -80,12 +80,17 @@ export class DetalleComponent implements OnInit {
 
 
       listarTipos(){
-        //console.log(this.tipoDetalle,this._descriptivasService.modeloDetalle.indexOf(this.tipoDetalle))
-        //implementacion asquerosa mejorar
-        let t:number = this.tipoDetalle=='banco'?1:0;
-        //
+        //console.log(this.tipoDetalle,this._formasDinamicasService.modeloDetalle.indexOf(this.tipoDetalle))
+        //TODO implementacion asquerosa mejorar
 
-        return this._descriptivasService
+        let t:number = this.tipoDetalle == 'banco'     ? 1 :
+                       this.tipoDetalle == 'direccion' ? 0 :
+                            2;
+
+
+        //
+        console.log(this.tipoDetalle,t)
+        return this._formasDinamicasService
         .listarDetalles(
             this.padre.modelo,
             t,
@@ -95,12 +100,12 @@ export class DetalleComponent implements OnInit {
 
       agregarTipo() {
             let control = <FormArray>this.forma.controls[this.tipoDetalle];
-
             control.push(this.initTipo());
        }
 
        initTipo() {
-         //agraga un valor al arreglo por cada registrodetalle que tenga el objeto
+console.log('initTipo' ,this.tipoDetalle);
+         //agrega un valor al arreglo por cada registrodetalle que tenga el objeto
          //lo que permite al NgFor iterar
          this.rango.push(this.tipoDetalle);
         return this.f[`${this.tipoDetalle}Detalle`]();
@@ -109,16 +114,7 @@ export class DetalleComponent implements OnInit {
        eliminarTipo(i){
        let control = <FormArray>this.forma.controls[this.tipoDetalle];
        //console.log(this.padre.modelo,this.padre[this.tipo].$key, i,0);
-           this._descriptivasService.eliminarDetalle(this.padre.modelo,this.padre[this.tipo].$key, i,this.tipoDetalle);
+           this._formasDinamicasService.eliminarDetalle(this.padre.modelo,this.padre[this.tipo].$key, i,this.tipoDetalle);
            control.removeAt(i);
        }
-
-
-
-
-
-
-
-
-
-}
+     }

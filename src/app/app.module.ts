@@ -6,7 +6,7 @@ import { NgModule/*, NO_ERRORS_SCHEMA*/ } from '@angular/core';
 import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
- import { NguiAutoCompleteModule } from '@ngui/auto-complete';
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import 'hammerjs';
@@ -32,6 +32,7 @@ import { DescriptivasService } from './services/descriptivas.service';
 import { AutorizacionesService } from './services/autorizaciones.service';
 import { EmpresasService } from './services/empresas.service';
 import { AuthService } from './services/auth.service';
+import { FormasDinamicasService } from './services/formas-dinamicas.service';
 
 import { firebase } from './config/firebase.config';
 import { MuestraConfirmacionComponent } from './components/muestra-alerta/muestra-confirmacion.component';
@@ -45,8 +46,6 @@ import { RegistroComponent } from './components/auth/registro/registro.component
 import { LoginComponent } from './components/auth/login//login.component';
 import { EmpleadosComponent } from './components/empleados/empleados.component';
 import { EmpresasComponent } from './components/empresas/empresas.component';
-/*import { DetalleBancoComponent } from './components/detalle-banco/detalle-banco.component';
-imort { DetalleDireccionComponent } from './components/detalle-direccion/detalle-direccion.component';*/
 import { EdicionComponent } from './components/edicion/modal/edicion.component';
 import { DatosComponent } from './components/edicion/modal/datos.component';
 import { EdicionGeneralComponent } from './components/edicion/edicion-general.component';
@@ -168,7 +167,7 @@ MultiselectDropdownModule,
 ],
   //schemas: [ NO_ERRORS_SCHEMA ],
   providers: [AngularFireAuth,
-    AutorizacionesService,EmpresasService,InstitucionesService,EmpleadosService,ClientesService,DescriptivasService,PrincipalService,AuthService],
+    AutorizacionesService,EmpresasService,InstitucionesService,EmpleadosService,ClientesService,DescriptivasService,PrincipalService,AuthService,FormasDinamicasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

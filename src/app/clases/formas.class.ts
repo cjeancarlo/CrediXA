@@ -1,4 +1,7 @@
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
+import { Autorizacion } from './autorizacion.class';
+
+
 
 export class Formas {
 tipo:string;
@@ -39,7 +42,7 @@ return this[tipo]
        'datos' : new FormGroup({
              'codigo': new FormControl('', [Validators.required,Validators.minLength(3)]),
              'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
-             'email': new FormControl('', [Validators.required,Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
+             'email': new FormControl('',  [Validators.required,Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
              'telefono': new FormControl(),
              'empresa': new FormControl('', [Validators.required]),
        }),
@@ -53,8 +56,41 @@ return this[tipo]
 
   }
 
-  clienteCampos:string[] =['codigo','nombre', 'email']
-  cliente():FormGroup {
+
+
+
+  clienteCampos:{}[] =[{
+                        'nombre':'codigo',
+                        'tipo':'number',
+                        'requerido':true,
+                        'modal':true},
+                       {
+                        'nombre':'nombre',
+                       'tipo':'text',
+                       'requerido':true,
+                       'modal':true},
+                       {
+                       'nombre':'email',
+                       'tipo':'email',
+                       'requerido':true,
+                       'modal':true},
+                       {
+                       'nombre':'telefono',
+                       'tipo':'text',
+                       'requerido':false,
+                       'modal':false},
+                        {
+                        'nombre':'direccion',
+                        'tipo':'ARRAY',
+                        'modal':false
+                        },{
+                          'nombre':'banco',
+                          'tipo':'ARRAY',
+                          'modal':false
+
+                        }]
+
+  /*cliente():FormGroup {
     return   new FormGroup({
     '$key': new FormControl(),
     'datos' : new FormGroup({
@@ -70,7 +106,7 @@ return this[tipo]
 
             ])
     });
-  }
+  }*/
 
   bancoCampos:string[] =['codigo','nombre']
   banco():FormGroup {
@@ -105,27 +141,47 @@ return this[tipo]
     });
   }
 
-  autorizacionCampos:string[] =['nroAut','fecha','nroFactura','monto', 'cuotas','pagado',
-  'empleado','institucion']
-  autorizacion():FormGroup {
-    return   new FormGroup({
-    '$key': new FormControl(),
-    'datos' : new FormGroup({
-          'nroAut': new FormControl(''),
-          'fecha': new FormControl('', [Validators.required]),
-          'nroFactura': new FormControl('', [Validators.required,Validators.minLength(1)]),
-          'monto': new FormControl('', [Validators.required,Validators.minLength(3)]),
-          'cuotas': new FormControl('', [Validators.required,Validators.minLength(3)]),
-          'pagado': new FormControl(''),
-          'institucion': new FormControl('', [Validators.required]),
-          'empresa': new FormControl(''),
-          'empleado': new FormControl('', [Validators.required]),
-    }),
-    'cuotas' :new FormArray([
+  autorizacionCampos:{}[] =[{
+    'nombre':'nroAut',
+    'tipo':'number',
+    'requerido':true,
+    'modal':true
+  },{
+    'nombre':'fecha',
+    'tipo':'date',
+    'modal':true
+  },{
+    'nombre':'nroFactura',
+    'modal':true
+  },{
+    'nombre':'monto',
+    'tipo':'number',
+    'modal':true
+  },{
+    'nombre':'cuotas',
+    'tipo':'number',
+    'modal':true
+  },{
+   'nombre':'pagado',
+   'tipo':'number',
+   'modal':true
+ },{
+   'nombre':'empleado',
+   'modal':true
+},{
+   'nombre':'institucion',
+   'modal':true
+},{
+   'nombre':'empresa',
+   'modal':false
+},{
+  'nombre':'cuotas',
+  'tipo':'ARRAY',
+  'modal':false
 
-        ])
-    });
-  }
+}]
+
+
 
   empleadoCampos:string[] =['codigo','cedula','nombre', 'apellido']
   empleado():FormGroup {
@@ -133,9 +189,9 @@ return this[tipo]
     '$key': new FormControl(),
     'datos' : new FormGroup({
           'codigo': new FormControl('', [Validators.required]),
-          'cedula': new FormControl('', [Validators.required]),
           'nombre': new FormControl('', [Validators.required,Validators.minLength(5)]),
           'apellido': new FormControl('', [Validators.required,Validators.minLength(5)]),
+          'cedula': new FormControl('', [Validators.required]),
           'email': new FormControl('', [Validators.pattern('^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$')]),
           'instituciones': new FormControl([''],Validators.required)
     }),
@@ -171,4 +227,25 @@ bancoDetalle():FormGroup {
             'cuenta': new FormControl('',[Validators.required]),
   });
 }
+
+
+cuotasDetalleCampos:any[] =[
+    {'campo':'nroAut','tipo':'number'},
+    {'campo':'fecha','tipo':'date'},
+    {'campo':'montoCuota','tipo':'number'},
+    {'campo':'fechaPagado','tipo':'date'},
+    {'campo':'montoPagado','tipo':'number'},
+
+]
+cuotasDetalle():FormGroup {
+  return new FormGroup({
+            'nroAut':  new FormControl('',[Validators.required]),
+            'fecha': new FormControl('',[Validators.required]),
+            'montoCuota': new FormControl('',[Validators.required]),
+            'fechaPagado': new FormControl(''),
+            'montoPagado': new FormControl(''),
+  });
+}
+
+
 }

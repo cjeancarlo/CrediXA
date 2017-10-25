@@ -1,11 +1,11 @@
 import { Component, OnInit,Injector,Input } from '@angular/core';
-import { AutorizacionesService, EmpleadosService,InstitucionesService,EmpresasService,ClientesService,DescriptivasService } from './index.services';
+import { AutorizacionesService, EmpleadosService,InstitucionesService,EmpresasService,ClientesService,FormasDinamicasService } from './index.services';
 import { Formas } from '../../clases/formas.class';
 import { FormGroup,FormControl,Validators,FormArray} from '@angular/forms';
 import { Observable } from 'rxjs/Rx'
 import {ActivatedRoute ,Router} from '@angular/router';
 import 'rxjs/add/operator/take';
-import { IMultiSelectOption,IMultiSelectSettings } from 'angular-2-dropdown-multiselect';
+import { IMultiSelectOption,IMultiSelectSettings,IMultiSelectTexts } from 'angular-2-dropdown-multiselect';
 
 @Component({
   selector: 'app-edicion-general',
@@ -15,7 +15,7 @@ import { IMultiSelectOption,IMultiSelectSettings } from 'angular-2-dropdown-mult
 export class EdicionGeneralComponent implements OnInit{
 
   private sub: any;
-  f:any;
+  //f:any;
   forma:FormGroup;
   campos:string[]=[];
   clickeado:boolean = false;
@@ -23,7 +23,21 @@ export class EdicionGeneralComponent implements OnInit{
   servicio:any;
   tipo:string;
 
+editandoA:string ='';
+
   myOptions: IMultiSelectOption[] = [];
+
+  myTexts: IMultiSelectTexts = {
+      checkAll: 'Todos',
+      uncheckAll: 'Ninguno',
+      checked: 'seleccionado',
+      checkedPlural: 'seleccionados',
+      searchPlaceholder: 'Buscar',
+      searchEmptyResult: 'ningun resultado...',
+      searchNoRenderText: 'Type in search box to see results...',
+      defaultTitle: 'instituciones',
+      allSelected: 'Todas',
+  };
 
 
  mySettings: IMultiSelectSettings = {
@@ -45,29 +59,25 @@ export class EdicionGeneralComponent implements OnInit{
 
 
 
-    constructor(public injector:Injector,private route:ActivatedRoute, private _descriptivasService:DescriptivasService) {      //los cargo a este nivel para evitar cargarlos cada vez que llame al detalle
-      this._descriptivasService.paises = this._descriptivasService.listarPaises();
-      this._descriptivasService.bancos = this._descriptivasService.listarBancos();
-      this._descriptivasService.empresas = this._descriptivasService.listarEmpresas();
+    constructor(public injector:Injector,private route:ActivatedRoute, private _formasDinamicasService:FormasDinamicasService) {      //los cargo a este nivel para evitar cargarlos cada vez que llame al detalle
+      this._formasDinamicasService.paises = this._formasDinamicasService.listarPaises();
+      this._formasDinamicasService.bancos = this._formasDinamicasService.listarBancos();
+      this._formasDinamicasService.empresas = this._formasDinamicasService.listarEmpresas();
       }
-
-
 
       ngOnInit() {
 
                 this.sub = this.route.params.subscribe(params => {
                 this.tipo = params['tipo'];
                 this.servicio = this.injector.get(this.dameServicio());
+                this.editandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
                 });
 
-           this.f = new Formas();
-           this.forma = this.f[this.tipo]();
-           this.dameCamposForma()
+           //this.f = new Formas();
+           this.forma = this._formasDinamicasService.creaForma(this.tipo)
+           //this.dameCamposForma()
 
-           this.filter().then((results:IMultiSelectOption[]) => {
-              this.myOptions= results
-              console.log('cargando resultados')
-            })
+
 
            console.log('llenando forma',this.servicio[this.tipo].datos)
              if (this.servicio[this.tipo].hasOwnProperty('$key')){
@@ -82,17 +92,30 @@ export class EdicionGeneralComponent implements OnInit{
                      }
 
 
+                    /*  //TODO
+                     this._formasDinamicasService.filter(null,'').then((results:IMultiSelectOption[]) => {
+                        this.myOptions= results
+                        console.log('cargando resultados')
+                      }).then(()=>{
+                          this.onChanges();
+                      })*/
 
-
-                this.onChanges();
 
 
 
          }
 
+
+ngAfterContentInit (){
+ //this.clickeado= true;
+ console.log('ngAfterContentInit')
+
+}
          onChanges(): void {
            this.forma.valueChanges.subscribe(val => {
-            if(this.clickeado)  this.clickeado= false;
+             if(this.clickeado)  {
+               this.clickeado= false;
+             }
            });
          }
 
@@ -103,7 +126,7 @@ export class EdicionGeneralComponent implements OnInit{
                 //console.log('respuesta',res);
                this.servicio[this.tipo].$key = res;
                this.operacion ="Editando";
-               this.forma.patchValue(this.servicio[this.tipo]);
+               //this.forma.patchValue(this.servicio[this.tipo]);
                this.clickeado= true
          })
      }
@@ -115,13 +138,13 @@ export class EdicionGeneralComponent implements OnInit{
 
       }
 
-dameCamposForma():void{
+/*dameCamposForma():void{
     let c:Array<string> =[];
      const control = <FormGroup>this.forma.controls['datos'];
      Object.keys(control.controls).forEach( (key) => {
           this.campos.push(key)
       });
-}
+}*/
      resetDetalle(grupoDetalle:string){
        const control = <FormArray>this.forma.controls[grupoDetalle];
        let len = control.length;
@@ -156,14 +179,14 @@ case 'autorizacion':
    this.sub.unsubscribe();
  }
 
-filter(texto:string=null){
+/*filter(texto:string=null){
 let myOptions=[];
 return  new Promise(resolve=>{
-    let  selectedItems   = this._descriptivasService[`listarInstituciones`]()
+    let  selectedItems   = this._formasDinamicasService[`listarInstituciones`]()
     selectedItems.take(1).subscribe(items=> {
         items.filter(item => {
           let buscarPor:string='';
-          this._descriptivasService.autoCompleteConfig.institucion.concatBusqueda.forEach(b => {
+          this._formasDinamicasService.autoCompleteConfig.institucion.concatBusqueda.forEach(b => {
               buscarPor +=`${item[b]} `;
               })
 
@@ -182,16 +205,34 @@ return  new Promise(resolve=>{
         })
 
         //return  p
+  }*/
+
+  loadData = (event,campo)=> {
+         let filter = event.filter;
+         let length = event.length;
+         let $joinKey:string=null;
+
+           if(this.tipo== 'autorizacion' && campo =='institucion' ){
+             //sive para obtener el Key del empleado para asi consultar sus instituciones
+               $joinKey= this.forma.get('datos.empleado').value[0]
+               }
+
+console.log(filter,length,$joinKey)
+
+               this._formasDinamicasService.filter(filter,campo,$joinKey).then((results:IMultiSelectOption[]) => {
+               this._formasDinamicasService.autoCompleteConfig[campo].listado= results
+          });
   }
 
-loadData = (event)=> {
+
+/*loadData = (event)=> {
        let filter = event.filter;
        let length = event.length;
-        this.filter(filter).then((results:IMultiSelectOption[]) => {
-          console.log(results/*, JSON.parse(results)*/);
+        this._formasDinamicasService.filter(filter).then((results:IMultiSelectOption[]) => {
+);
           this.myOptions= results
         });
-}
+}*/
 
 
 }

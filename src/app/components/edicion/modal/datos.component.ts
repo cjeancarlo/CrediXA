@@ -1,6 +1,8 @@
 import { Component,ViewChild} from '@angular/core';
 import { EdicionComponent } from './edicion.component';
 
+import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
+
 @Component({
   selector: 'app-datos',
   template:''
@@ -20,45 +22,49 @@ constructor(){}
      $key: o.$key,
      datos:o })
    }
+      this.cargaListas();
 
-   //traduce el $key guardado en la base de datos por el string o descripcion legible
-   //solucion encontrada para desplegar la descripcion en los md-autocomplete
-   //funciones involucradas
-   //suscribeteACambios(key,o)
-   //cPL(string)
-   //displayOption(data,item)
-
-
-for (var key in this.hijo._descriptivasService.autoCompleteConfig) {
-    if(o[key])
-      this.suscribeteACambios(key,o)
-     }
 }
-private suscribeteACambios(item,o){
-         this.hijo._descriptivasService[`dame${this.cPL(item)}`](o[item]).take(1).subscribe(
-           data=> {this.hijo.forma.get(`datos.${item}`).setValue(this.displayOption(data,item))
-        })
-}
-
-private cPL(string) {//capitalizar primera letra =cPL
-     return string.charAt(0).toUpperCase() + string.slice(1);
- }
-
-private  displayOption(data,item){
- let display:string="";
- this.hijo._descriptivasService.autoCompleteConfig[item].concatBusqueda.forEach(b => {
- display +=`${data[b]} `;
- })
-//console.log('display',display);
-   return display;
-}
-
 
  LimpiaDatosModal(){
   if(this.hijo){//evita error de render
   this.hijo.forma.reset();
   this.hijo.operacion ="Insertando";
   }
+
+      this.cargaListas();
+
  }
+
+cargaListas(){
+
+if (this.hijo.tipo =='autorizacion'){
+  this.hijo._formasDinamicasService.filter(null,'empleado')
+            .then((results:IMultiSelectOption[]) => {//lleno la lista de empleados
+                  this.hijo._formasDinamicasService.autoCompleteConfig.empleado.listado = results
+                  console.log('cargando resultados empleado')
+         }).then(()=>{//lleno la lista de instituciones relacionasdas por empleado
+                    if(this.hijo.forma.get('datos.empleado').value!=null){
+                        let   $joinKey = this.hijo.forma.get('datos.empleado').value[0]
+                        this.hijo._formasDinamicasService.filter(null,'institucion',$joinKey)
+                          .then((results:IMultiSelectOption[]) =>
+                                {this.hijo._formasDinamicasService.autoCompleteConfig.institucion.listado= results})
+                          .then(()=>{//y en la lista si hay un cambio limpio  el valor seleccionado de la lista de instituciones
+                                        this.hijo.forma.get('datos.empleado').valueChanges
+                                .subscribe(val => {
+                                        let campo:string ='institucion'
+                                        if (val && val[0]){
+                                            let   $joinKey = this.hijo.forma.get('datos.empleado').value[0]
+                                            this.hijo._formasDinamicasService.filter(null,'institucion',$joinKey)
+                                            .then((results:IMultiSelectOption[]) => {
+                                            this.hijo._formasDinamicasService.autoCompleteConfig.institucion.listado= results
+                                            })
+                                        }//end if
+                                });
+                        });
+                  }//end if
+        })
+  }//end if tipo autotizacion
+}
 
 }

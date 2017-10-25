@@ -1,8 +1,8 @@
 import { Cuotas } from './cuotas.class';
 
 export class Autorizacion {
-  $key:string;
-  datos:{
+  public $key:string;
+  public datos:{
   fecha:Date;
    nroFactura:string;
    nroAut:number;
@@ -14,7 +14,9 @@ export class Autorizacion {
    empresa:string;
    empleado:string;
   }
-  cuotas:Cuotas[];
+  public cuotas:Cuotas[];
+
+
 
  constructor(values: Object = {}) {
    Object.assign(this, values);

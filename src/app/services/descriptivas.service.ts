@@ -5,6 +5,12 @@ import { PrincipalService } from './principal.service';
 import { Pais } from '../clases/pais.class';
 import { Ciudad } from '../clases/ciudad.class';
 import { Banco } from '../clases/banco.class';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/switchMap';
+
+
 
 @Injectable()
 export class DescriptivasService extends  PrincipalService  {
@@ -13,12 +19,16 @@ export class DescriptivasService extends  PrincipalService  {
 autoCompleteConfig={
   "empleado":{"$key":null,
               "concatBusqueda":['cedula','nombre','apellido'],
-              "plural":"Empleados"
+              "plural":"Empleados",
+              "listado":null,
+              "join":null
             },
   "institucion":{"$key":null,
               "concatBusqueda":['codigo','nombre'],
-              "plural":"Instituciones"
-                      }
+              "plural":"Instituciones",
+              "listado":null,
+              "join":'EmpleadoInstituciones'
+            }
 }
 
   paises: FirebaseListObservable<any[]>;
@@ -56,9 +66,63 @@ autoCompleteConfig={
               return this.listar(`${this.modeloEmpleado}`)
   }
 
-  listarEmpleadoInstituciones($key):FirebaseListObservable<any[]>{
-              return this.listar(`${this.modeloEmpleado}/${$key}/${this.modeloInstitucion}`)
-  }
+
+  /*instituciones.map(institucion=>{
+    let mapeo
+        console.log(institucion.$value)
+
+    mapeo=  this.listarObjeto(`${this.modeloInstitucion}/${institucion.$value}`)
+        .subscribe(institucion=>{
+            return institucion
+        })
+          console.log(mapeo    )
+    return mapeo
+
+
+})
+*/
+
+
+
+listarEmpleadoInstituciones($empleadoKey){
+
+
+return this.listar(`${this.modeloEmpleado}/${$empleadoKey}/${this.modeloInstitucion}`)
+  .switchMap(Empleado_instituciones => {
+
+
+let institucionesObservables = [];
+Empleado_instituciones.forEach(institucion => {
+
+      // Add the author:
+
+      institucionesObservables.push(
+        this.listarObjeto(`${this.modeloInstitucion}/${institucion.$value}`)
+        .first()
+        .do(value => { institucion.nombre = value.nombre;
+                       institucion.id= value.$key }
+                     ));
+
+      // Add the participants:
+
+      /*Object.keys(institucion.participants).forEach(key => {
+        institucionesObservables.push(this.af.database
+          .object(`members/${key}`)
+          .first()
+          .do(value => { institucion.participants[key] = value.username; })
+        );
+      });*/
+    });
+
+    // Join the member observables and use the result selector to
+    // return the Empleado_instituciones - which will have been updated.
+
+    return Observable.forkJoin(...institucionesObservables);
+  });
+
+}
+
+
 
 
 listarInstituciones():FirebaseListObservable<any[]>{

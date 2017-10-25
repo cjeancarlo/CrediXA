@@ -21,7 +21,7 @@ export class AutorizacionesComponent extends DatosComponent  {
         this._autorizacionesService.items = this._autorizacionesService.listarAutorizaciones()
       }
 
-  buscarInstitucion(){
+  buscarAutorizacion(){
       this._autorizacionesService.items = this._autorizacionesService.buscarAutorizacion(this.buscar);
     }
 

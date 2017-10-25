@@ -5,8 +5,6 @@ import { Banco } from './banco.class';
 export class Empleado {
   $key:string;
   datos:{
-   codigo:string;
-   cedula:string;
    nombre:string;
    apellido:string;
    email:string;
@@ -16,7 +14,8 @@ export class Empleado {
   }
   direccion:Direccion[];
   banco:Banco[];
-
+  codigo:string;
+  cedula:string;
 
   constructor(values: Object = {}) {
 		//super()

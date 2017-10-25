@@ -6,7 +6,7 @@
   <small><span class="badge badge-success">{{forma.get('$key').value}}</span></small>
 </div>
 <div class="col-md-10">
-<h1> <span class="badge badge-primary">{{forma.get('datos.nombre').value}}</span></h1>
+<small class="badge badge-primary">{{forma.get('datos.'+editandoA).value}}</small>
 </div>
 <hr>
 
@@ -15,61 +15,59 @@
 <div class="row main-container" >
 <div class="col-sm-12">
 <form (ngSubmit)="guardar()"  [formGroup]="forma" >
-
   <div formGroupName="datos">
-    <div class="form-group" *ngFor="let campo of campos"  [ngSwitch]="campo">
-
-
-        <md-select class="md-full-width"    [placeholder]="campo" formControlName={{campo}} *ngSwitchCase="'empresa'">
-         <md-option *ngFor="let empresa of _descriptivasService.empresas | async"
-         [value]="empresa.$key">{{empresa.nombre}}
-        </md-option>
-        </md-select>
+    <div class="form-group" *ngFor="let campo of _formasDinamicasService.campos"  [ngSwitch]="campo.nombre">
+    <div *ngIf="campo.tipo !='ARRAY'">
 
 
 
+  <div *ngSwitchCase="'empleado'">
+        <label [for]="campo.nombre">{{campo.nombre}}</label>
+         <ss-multiselect-dropdown
+         [id]="campo.nombre"
+         [texts]="_formasDinamicasService.myTexts"
+         [settings]="_formasDinamicasService.mySettings"
+         [options]="_formasDinamicasService.autoCompleteConfig[campo.nombre].listado"
+         formControlName={{campo.nombre}}
+         (onLazyLoad)="loadData($event,campo.nombre)"
+         ></ss-multiselect-dropdown>
+      </div>
 
 
-<div class="md-full-width" *ngSwitchCase="'instituciones'">
+<div class="md-full-width" *ngSwitchCase="'institucion'">
+<label [for]="campo.nombre">{{campo.nombre}}</label>
  <ss-multiselect-dropdown
-
- [settings]="mySettings"
- [options]="myOptions" formControlName={{campo}}
- (onLazyLoad)="loadData($event)"
+ [id]="campo.nombre"
+ [texts]="_formasDinamicasService.myTexts"
+ [settings]="_formasDinamicasService.mySettings"
+ [options]="_formasDinamicasService.autoCompleteConfig[campo.nombre].listado"
+ formControlName={{campo.nombre}}
+ (onLazyLoad)="loadData($event,campo.nombre)"
  ></ss-multiselect-dropdown>
 </div>
 
 <md-form-field class="md-full-width" *ngSwitchDefault>
-      <input  mdInput type="text" id="campo" formControlName={{campo}} [placeholder]="campo" >
-      <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo)"></app-muestra-alerta>
+      <input mdInput [type]="_formasDinamicasService.dameTipo(campo)" [id]="campo.nombre" class="form-control" formControlName={{campo.nombre}} [placeholder]="campo.nombre"  >
+      <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo.nombre)"></app-muestra-alerta>
 </md-form-field>
 
-
+</div>
       </div>
 </div>
-<div >
-<ul class="nav nav-tabs" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#direccionTab" role="tab">Dirección</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#bancoTab" role="tab">Cuentas Bancarias</a>
-  </li>
 
+
+<ul class="nav nav-tabs" role="tablist"  >
+  <li class="nav-item" *ngFor="let detalle of _formasDinamicasService.detalles; let i = index">
+    <a class="nav-link" [ngClass]="{'active': i==0}" data-toggle="tab" [href]="'#'+detalle.nombre+'Tab'" role="tab">{{detalle.nombre}}</a>
+  </li>
 </ul>
-<div class="tab-content"  >
-  <div class="tab-pane active" id="direccionTab" role="tabpanel">
-<app-detalle [forma]="forma"  [padre]="servicio" tipoDetalle="direccion" [tipo]="tipo"></app-detalle>
-
+<div class="tab-content"  role="tabpanel" >
+  <div class="tab-pane" [ngClass]="{'active': i==0}" [id]="detalle.nombre+'Tab'" *ngFor="let detalle of _formasDinamicasService.detalles; let i = index">
+    <app-detalle [forma]="forma"  [padre]="servicio" [tipoDetalle]="detalle.nombre" [tipo]="tipo"></app-detalle>
   </div>
-  <div class="tab-pane" id="bancoTab" role="tabpanel">
-  <app-detalle [forma]="forma" [padre]="servicio" tipoDetalle="banco" [tipo]="tipo"></app-detalle>
-
-  </div>
-
-
 </div>
-</div>
+
+
 <div class="row ">
  <div class="col-md-6 text-left">
       <button md-raised-button type="button"  class="btn btn-success"
@@ -79,7 +77,7 @@
        <button md-raised-button type="button"  class="btn btn-secondary"
        [routerLink]="['/'+tipo+'s']">Volver</button>
       <button md-raised-button
-      [disabled]="clickeado || (!forma.dirty|| !forma.valid)"
+      [disabled]="clickeado || (!forma.valid)"
       type="submit" class="btn btn-outline-primary">Guardar</button>
       </div>
  </div>
@@ -90,7 +88,7 @@
       dirty {{forma.dirty }}
       clickeado {{clickeado}}
       {{!forma.valid && forma.dirty}}
-      direccion {{forma.controls.direccion.valid}}
+
 </pre>
 
  </form>

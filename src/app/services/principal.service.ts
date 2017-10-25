@@ -3,16 +3,16 @@ import { AngularFireDatabase, FirebaseListObservable , FirebaseObjectObservable}
 
 @Injectable()
 export class PrincipalService {
-modeloDetalle:string[]=['direcciones','bancos']
+modeloDetalle:string[]=['direcciones','bancos','cuotas']
 constructor(protected db:AngularFireDatabase) { }
 
 
-guardar (objeto:any, modelo:string, $key:string):Promise<string> {
+guardar (objeto:{}, modelo:string, $key:string):Promise<string> {
 //console.log(`${ modelo}/${$key}`)
 		if (  $key != null  ) {
 		//console.log('UPDATE ',objeto)
       return new Promise((resolve) => {
-            this.db.object(`${ modelo}/${$key}`).update(objeto)
+            this.db.object(`${ modelo}/${$key}`).set(objeto)
                   .then(item=> {
 											resolve($key)
 								})
@@ -67,7 +67,7 @@ listarDetalles(modelo:string,detalle:number,$key):FirebaseListObservable<any[]>{
 						}
 
 eliminarDetalle(modelo:string,$modeloBaseKey:string,$key:string,indice:number){
-	console.log(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }`);
+	//console.log(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }`);
 					    this.eliminar(`${modelo}-${this.modeloDetalle[indice]}/${$modeloBaseKey}`,`${ $key }` );
 					  }
 }

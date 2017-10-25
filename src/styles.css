@@ -8,12 +8,6 @@
   width: 100%;
 }
 
-.cdk-overlay-container {
-    z-index: 2000;
-}
-
-
-
 .controlFloatingLabel {
     top: -30px;
     left: 0;

@@ -22,14 +22,13 @@
     </div>
     <div class="panel-body" [formGroupName]="i">
 <!--<div  *ngFor="let campo of campos"></div>      -->
-
    <div class="row" >
-     <div class="col-sm-3" *ngFor="let key of objectKeys(campos)" [ngSwitch]="campos[key].campo">
+     <div class="col-sm-2" *ngFor="let key of objectKeys(campos)" [ngSwitch]="campos[key].campo">
       <div   *ngSwitchCase="'pais'"  >
         <md-select class="md-full-width"  [placeholder]="campos[key].campo" formControlName="pais"
         (ngModelChange)="onSelect($event,i)" >
          <md-option
-         *ngFor="let pais of _descriptivasService.paises | async"
+         *ngFor="let pais of _formasDinamicasService.paises | async"
          [value]="pais.$key" > {{pais.nombre}}
         </md-option>
         </md-select>
@@ -38,7 +37,7 @@
       <div  *ngSwitchCase="'ciudad'">
         <md-select class="md-full-width"  [placeholder]="campos[key].campo" formControlName="ciudad">
         <md-option
-        *ngFor="let ciudad of _descriptivasService.ciudades[i] | async"
+        *ngFor="let ciudad of _formasDinamicasService.ciudades[i] | async"
         [value]="ciudad.$key" > {{ciudad.nombre}}</md-option>
         </md-select>
       </div>
@@ -46,7 +45,7 @@
       <div  *ngSwitchCase="'banco'">
         <md-select class="md-full-width"  [placeholder]="campos[key].campo" formControlName="banco">
         <md-option
-        *ngFor="let banco of _descriptivasService.bancos | async"
+        *ngFor="let banco of _formasDinamicasService.bancos | async"
         [value]="banco.$key" > {{banco.nombre}}</md-option>
         </md-select>
       </div>

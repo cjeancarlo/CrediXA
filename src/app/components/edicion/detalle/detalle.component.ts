@@ -43,8 +43,6 @@ export class DetalleComponent implements OnInit {
               ds.map((d,i) =>{
                 //console.log(this.tipo,this.padre[this.tipo].$key)
                 control.push(this.initTipo());
-
-
                 if(d.pais){
                           //si el detalle tiene el campo
                           //o objeto pais carga la data de los DropDowns
@@ -73,23 +71,18 @@ export class DetalleComponent implements OnInit {
       onSelect(value,i) {
           this._formasDinamicasService.pais.$key = value;
           this._formasDinamicasService.ciudades[i] =this._formasDinamicasService.listarCiudades();
-
-
-
-      }
+        }
 
 
       listarTipos(){
         //console.log(this.tipoDetalle,this._formasDinamicasService.modeloDetalle.indexOf(this.tipoDetalle))
         //TODO implementacion asquerosa mejorar
-
         let t:number = this.tipoDetalle == 'banco'     ? 1 :
                        this.tipoDetalle == 'direccion' ? 0 :
                             2;
-
-
         //
-        console.log(this.tipoDetalle,t)
+
+        //console.log(this.tipoDetalle,t)
         return this._formasDinamicasService
         .listarDetalles(
             this.padre.modelo,
@@ -104,11 +97,18 @@ export class DetalleComponent implements OnInit {
        }
 
        initTipo() {
-console.log('initTipo' ,this.tipoDetalle);
+         //console.log('initTipo' ,this.tipoDetalle);
          //agrega un valor al arreglo por cada registrodetalle que tenga el objeto
          //lo que permite al NgFor iterar
          this.rango.push(this.tipoDetalle);
-        return this.f[`${this.tipoDetalle}Detalle`]();
+           let f:FormGroup = new FormGroup({})
+            Object.values(this.campos).forEach(item=>{
+                 let requerido:FormControl = (item.requerido) ?  new FormControl(null, Validators.required) : new FormControl(null, null)
+                   f.addControl(item.nombre,requerido)
+              })
+
+              //return this.f[`${this.tipoDetalle}Detalle`]();
+              return f;
       }
 
        eliminarTipo(i){

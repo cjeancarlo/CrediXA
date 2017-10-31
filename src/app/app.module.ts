@@ -89,6 +89,8 @@ import {
 import {HttpModule} from '@angular/http';
 import {CdkTableModule} from '@angular/cdk/table';
 import { AutoCompleteComponent } from './components/edicion/auto-complete/auto-complete.component';
+import { ColumnasPipe } from './pipes/columnas.pipe';
+
 
 @NgModule({
   exports: [
@@ -149,7 +151,8 @@ export class MaterialModule {}
     DetalleComponent,
     InstitucionesComponent,
     AutorizacionesComponent,
-    AutoCompleteComponent
+    AutoCompleteComponent,
+    ColumnasPipe
   ],
   imports: [
   HttpModule,

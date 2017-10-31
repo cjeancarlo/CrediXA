@@ -26,7 +26,7 @@ import { EdicionGeneralComponent } from  './components/edicion/edicion-general.c
   { path: 'ciudades', component: CiudadesComponent },
   { path: 'bancos', component: BancosComponent },
   { path: 'empresas', component: EmpresasComponent },
-  { path: 'institucions', component: InstitucionesComponent },
+  { path: 'instituciones', component: InstitucionesComponent },
   { path: 'edita/:tipo', component: EdicionGeneralComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' }
 

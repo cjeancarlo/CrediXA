@@ -28,7 +28,25 @@ autoCompleteConfig={
               "plural":"Instituciones",
               "listado":null,
               "join":'EmpleadoInstituciones'
-            }
+            },
+  "autorizacion":{"$key":null,
+                        "concatBusqueda":['nroFactura','monto'],
+                        "plural":"Autorizaciones",
+                        "listado":null,
+                        "join":null
+                      },
+  "cliente":{"$key":null,
+              "concatBusqueda":['codigo','nombre'],
+              "plural":"Clientes",
+              "listado":null,
+              "join":null
+            },
+  "empresa":{"$key":null,
+          "concatBusqueda":['codigo','nombre'],
+          "plural":"Empresas",
+          "listado":null,
+          "join":null
+           }
 }
 
   paises: FirebaseListObservable<any[]>;
@@ -66,40 +84,18 @@ autoCompleteConfig={
               return this.listar(`${this.modeloEmpleado}`)
   }
 
-
-  /*instituciones.map(institucion=>{
-    let mapeo
-        console.log(institucion.$value)
-
-    mapeo=  this.listarObjeto(`${this.modeloInstitucion}/${institucion.$value}`)
-        .subscribe(institucion=>{
-            return institucion
-        })
-          console.log(mapeo    )
-    return mapeo
-
-
-})
-*/
-
-
-
 listarEmpleadoInstituciones($empleadoKey){
+  return this.listar(`${this.modeloEmpleado}/${$empleadoKey}/${this.modeloInstitucion}`)
+        .switchMap(Empleado_instituciones => {
 
+            let institucionesObservables = [];
+              Empleado_instituciones.forEach(institucion => {
 
-return this.listar(`${this.modeloEmpleado}/${$empleadoKey}/${this.modeloInstitucion}`)
-  .switchMap(Empleado_instituciones => {
-
-
-let institucionesObservables = [];
-Empleado_instituciones.forEach(institucion => {
-
-      // Add the author:
-
-      institucionesObservables.push(
-        this.listarObjeto(`${this.modeloInstitucion}/${institucion.$value}`)
-        .first()
-        .do(value => { institucion.nombre = value.nombre;
+      // Agregar los datos de la institucion a partir del KEY:
+        institucionesObservables.push(
+            this.listarObjeto(`${this.modeloInstitucion}/${institucion.$value}`)
+            .first()
+            .do(value => { institucion.nombre = value.nombre;
                        institucion.id= value.$key }
                      ));
 
@@ -121,19 +117,12 @@ Empleado_instituciones.forEach(institucion => {
   });
 
 }
-
-
-
-
 listarInstituciones():FirebaseListObservable<any[]>{
             return this.listar(`${this.modeloInstitucion}`)
 }
-
-
 listarEmpresas():FirebaseListObservable<any[]>{
             return this.listar(`${this.modeloEmpresa}`)
 }
-
 listarBancos():FirebaseListObservable<any[]>{
           return this.listar(`${this.modeloBanco}`)
 }
@@ -166,7 +155,6 @@ guardarciudad(ciudad:Ciudad):Promise<string> {
 eliminarCiudad($key:string) {
       this.eliminar(`${this.modeloPais}/${this.pais.$key}/${this.modeloCiudad}`,`${ $key }`);
 }
-
 ///paises
 buscarPais(texto:string, cantidad:number=10):FirebaseListObservable<any[]> {
       return this.buscar(texto, this.modeloPais)

@@ -16,57 +16,73 @@
 <div class="col-sm-12">
 <form (ngSubmit)="guardar()"  [formGroup]="forma" >
   <div formGroupName="datos">
-    <div class="form-group" *ngFor="let campo of _formasDinamicasService.campos"  [ngSwitch]="campo.nombre">
-    <div *ngIf="campo.tipo !='ARRAY'">
 
-
-
-  <div *ngSwitchCase="'empleado'">
-        <label [for]="campo.nombre">{{campo.nombre}}</label>
-         <ss-multiselect-dropdown
-         [id]="campo.nombre"
-         [texts]="_formasDinamicasService.myTexts"
-         [settings]="_formasDinamicasService.mySettings"
-         [options]="_formasDinamicasService.autoCompleteConfig[campo.nombre].listado"
-         formControlName={{campo.nombre}}
-         (onLazyLoad)="loadData($event,campo.nombre)"
-         ></ss-multiselect-dropdown>
-      </div>
-
-
-<div class="md-full-width" *ngSwitchCase="'institucion'">
-<label [for]="campo.nombre">{{campo.nombre}}</label>
- <ss-multiselect-dropdown
- [id]="campo.nombre"
- [texts]="_formasDinamicasService.myTexts"
- [settings]="_formasDinamicasService.mySettings"
- [options]="_formasDinamicasService.autoCompleteConfig[campo.nombre].listado"
- formControlName={{campo.nombre}}
- (onLazyLoad)="loadData($event,campo.nombre)"
- ></ss-multiselect-dropdown>
+<div class="row">
+<div class="form-group col-sm-6"
+*ngFor="let campo of _formasDinamicasService.campos| columnas:i; let i = index; ">
+<ng-container
+  *ngTemplateOutlet="formaTemplate; context:{$implicit: campo}">
+</ng-container>
+</div>
+<div class="form-group col-sm-6"
+*ngFor="let campo of _formasDinamicasService.campos| columnas:i:false; let i = index; ">
+<ng-container
+  *ngTemplateOutlet="formaTemplate; context:{$implicit: campo}" >
+</ng-container>
+</div>
 </div>
 
-<md-form-field class="md-full-width" *ngSwitchDefault>
-      <input mdInput [type]="_formasDinamicasService.dameTipo(campo)" [id]="campo.nombre" class="form-control" formControlName={{campo.nombre}} [placeholder]="campo.nombre"  >
-      <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo.nombre)"></app-muestra-alerta>
-</md-form-field>
+<ng-template #formaTemplate let-campo>
+  <div class="form-group"   [ngSwitch]="campo.nombre">
+  <div *ngIf="campo.tipo !='ARRAY'">
+    <div *ngSwitchCase="'empleado'">
+          <label [for]="campo.nombre">{{campo.nombre}}</label>
+           <ss-multiselect-dropdown
+           [id]="campo.nombre"
+           [texts]="_formasDinamicasService.myTexts"
+           [settings]="_formasDinamicasService.mySettings"
+           [options]="_formasDinamicasService.autoCompleteConfig[campo.nombre].listado"
+           formControlName={{campo.nombre}}
+           (onLazyLoad)="loadData($event,campo.nombre)"
+           >
+           </ss-multiselect-dropdown>
+        </div>
 
-</div>
-      </div>
+  <div class="md-full-width" *ngSwitchCase="'institucion'">
+  <label [for]="campo.nombre">{{campo.nombre}}</label>
+   <ss-multiselect-dropdown
+   [id]="campo.nombre"
+   [texts]="_formasDinamicasService.myTexts"
+   [settings]="_formasDinamicasService.mySettings"
+   [options]="_formasDinamicasService.autoCompleteConfig[campo.nombre].listado"
+   formControlName={{campo.nombre}}
+   (onLazyLoad)="loadData($event,campo.nombre)"
+   ></ss-multiselect-dropdown>
+  </div>
+
+  <md-form-field class="md-full-width" *ngSwitchDefault>
+        <input mdInput [type]="_formasDinamicasService.dameTipo(campo)" [id]="campo.nombre" class="form-control" formControlName={{campo.nombre}} [placeholder]="campo.nombre"  >
+        <app-muestra-alerta class="text-danger text-right" [campo]="forma.get('datos.'+campo.nombre)"></app-muestra-alerta>
+  </md-form-field>
+
+  </div><!--  fin of  <div class="form-group" *ngFor="let campo of _formasDinamicasService.campos"-->
+  </div>
+</ng-template>
 </div>
 
 
 <ul class="nav nav-tabs" role="tablist"  >
-  <li class="nav-item" *ngFor="let detalle of _formasDinamicasService.detalles; let i = index">
+  <li class="nav-item"
+    *ngFor="let detalle of _formasDinamicasService.detalles; let i = index">
     <a class="nav-link" [ngClass]="{'active': i==0}" data-toggle="tab" [href]="'#'+detalle.nombre+'Tab'" role="tab">{{detalle.nombre}}</a>
   </li>
 </ul>
 <div class="tab-content"  role="tabpanel" >
-  <div class="tab-pane" [ngClass]="{'active': i==0}" [id]="detalle.nombre+'Tab'" *ngFor="let detalle of _formasDinamicasService.detalles; let i = index">
+  <div class="tab-pane" [ngClass]="{'active': i==0}" [id]="detalle.nombre+'Tab'"
+     *ngFor="let detalle of _formasDinamicasService.detalles; let i = index">
     <app-detalle [forma]="forma"  [padre]="servicio" [tipoDetalle]="detalle.nombre" [tipo]="tipo"></app-detalle>
   </div>
 </div>
-
 
 <div class="row ">
  <div class="col-md-6 text-left">
@@ -75,13 +91,12 @@
       </div>
       <div class="col-md-6 text-right">
        <button md-raised-button type="button"  class="btn btn-secondary"
-       [routerLink]="['/'+tipo+'s']">Volver</button>
+       [routerLink]="['/'+volver()]">Volver</button>
       <button md-raised-button
       [disabled]="clickeado || (!forma.valid)"
       type="submit" class="btn btn-outline-primary">Guardar</button>
       </div>
  </div>
-
 
 <pre>
       valido {{forma.valid }}

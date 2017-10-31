@@ -15,6 +15,10 @@ import { IMultiSelectOption,IMultiSelectSettings,IMultiSelectTexts } from 'angul
 export class EdicionGeneralComponent implements OnInit{
 
   private sub: any;
+
+
+
+
   //f:any;
   forma:FormGroup;
   campos:string[]=[];
@@ -22,6 +26,7 @@ export class EdicionGeneralComponent implements OnInit{
   operacion:string = "Agregando";
   servicio:any;
   tipo:string;
+  colunma:boolean=false;
 
 editandoA:string ='';
 
@@ -70,7 +75,7 @@ editandoA:string ='';
                 this.sub = this.route.params.subscribe(params => {
                 this.tipo = params['tipo'];
                 this.servicio = this.injector.get(this.dameServicio());
-                this.editandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
+              this.editandoA = this.tipo =='autorizacion' ?'nroFactura' :'nombre'
                 });
 
            //this.f = new Formas();
@@ -234,5 +239,13 @@ console.log(filter,length,$joinKey)
         });
 }*/
 
+volver(){
+  return (this._formasDinamicasService.autoCompleteConfig[this.tipo].plural).toLowerCase()
+}
 
+dameColunma(){
+  this.colunma=!this.colunma
+return this.colunma
+
+}
 }

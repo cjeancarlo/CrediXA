@@ -16,8 +16,6 @@ export class Autorizacion {
   }
   public cuotas:Cuotas[];
 
-
-
  constructor(values: Object = {}) {
    Object.assign(this, values);
 
